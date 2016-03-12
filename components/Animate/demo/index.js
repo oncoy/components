@@ -13,7 +13,7 @@ var AnimateChild = React.createClass({
 
 ReactDOM.render(
     <Animate>
-        <AnimateChild name="Animate Child"/>
+        <AnimateChild name="Animate Child" key="animate-child"/>
     </Animate>,
     document.getElementById('demo')
 );

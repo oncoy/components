@@ -13,8 +13,8 @@ var Animate = React.createClass({
         var children = props.children;
         var state = this.state;
 
-        if (!children.length) {
-            throw new Error('children required');
+        if (!(children && children.key)) {
+            throw new Error('children\'s key required');
         }
 
         return (<div class={state.scopeClassName}>
@@ -24,4 +24,4 @@ var Animate = React.createClass({
 
 });
 
-module.exprots = Animate;
+module.exports = Animate;
