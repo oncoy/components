@@ -11,5 +11,6 @@ let _path = function (name) {
 };
 
 module.exports = {
-    Animate: _path('Animate')
+    Animate: _path('Animate'),
+    Conditional: _path('Conditional')
 };
