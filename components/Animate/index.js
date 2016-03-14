@@ -1,25 +1,39 @@
 "use strict";
 
 var React = require('react');
+var AnimateMixin = require('./AnimateMixin');
+var assert = require('../../lib/assert');
 
 var Animate = React.createClass({
 
+    mixins: [AnimateMixin],
+
     getInitialState: function () {
-        return {scopeClassName: 'comp-animate'};
+        return {
+            className: 'comp-animate',
+            to: {}
+        };
     },
 
     render: function () {
-        var props = this.props;
-        var children = props.children;
-        var state = this.state;
+        var children = this.props.children;
+        var Components = this.props.component;
+        var self = this;
 
-        if (!(children && children.key)) {
-            throw new Error('children\'s key required');
-        }
+        children = children && children.constructor === Array ?
+            children :
+            [children];
 
-        return (<div class={state.scopeClassName}>
+        assert(children.length, "children is required");
+
+        children = React.Children.map(children, function (child) {
+            assert(children.key !== 'undefined', "children key is required");
+            return React.cloneElement(child, {parent: self});
+        });
+
+        return (<Components className={this.state.className} style={this.styleProps()}>
             {children}
-        </div>)
+        </Components>)
     }
 
 });

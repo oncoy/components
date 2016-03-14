@@ -31,11 +31,7 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel',
-                query: {
-                    cacheDirectory: true,
-                    presets: ['es2015', 'react', 'stage-0'],
-                    plugins: ['add-module-exports']
-                }
+                query: {presets: ['es2015', 'react', 'stage-0']}
             },
             {
                 test: /\.json$/,
@@ -62,7 +58,8 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
-        "react-dom/server": "ReactDOMServer"
+        "react-dom/server": "ReactDOMServer",
+        "tween": "TWEEN"
     },
 
     plugins: [
@@ -73,7 +70,6 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ['', '.js', '.jsx', '.less', '.css'],
-        unsafeCache: true
+        extensions: ['', '.js', '.jsx', '.less', '.css']
     }
 };
