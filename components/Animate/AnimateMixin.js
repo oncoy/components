@@ -3,10 +3,10 @@
  */
 
 var TweenEventMapping = ['Start', 'Update', 'Complete', 'Stop'];
-var noop = require('../../lib/noop');
+var noop = require('../../com/noop');
 var TWEEN = require('tween');
 var Tween = TWEEN.Tween;
-var requestAnimation = require('../../lib/requestAnimationFrame');
+var requestAnimation = require('../../com/requestAnimationFrame');
 var requestAnimationFrame = requestAnimation.requestAnimationFrame;
 var cancelAnimationFrame = requestAnimation.cancelAnimationFrame;
 var assign = require('object-assign');
@@ -22,7 +22,8 @@ module.exports = {
         during: React.PropTypes.number,
         delay: React.PropTypes.number,
         repeat: React.PropTypes.number,
-        easing: React.PropTypes.func
+        easing: React.PropTypes.func,
+        className: React.PropTypes.string
     },
 
     getDefaultProps: function () {
@@ -33,6 +34,7 @@ module.exports = {
         });
 
         return assign(props, {
+            className: '',
             component: 'span',
             styleProps: {},
             from: {},
@@ -42,15 +44,6 @@ module.exports = {
             repeat: 0,
             easing: TWEEN.Easing.Linear.None
         });
-    },
-
-    componentWillMount: function () {
-        var to = this.props.to;
-
-        for (var name in to) {
-            if (to.hasOwnProperty(name))
-                this.state.to[name] = to[name];
-        }
     },
 
     styleProps: function () {
@@ -69,7 +62,8 @@ module.exports = {
         var self = this;
         var id = null;
         var props = this.props;
-        var fn = null;
+        var animate = null;
+        var cancelAnimate = null;
 
         from = assign({}, from);
         to = assign({}, to);
@@ -87,34 +81,32 @@ module.exports = {
         tween.onUpdate(function () {
             // this 为 tween 中的 props 对象
             // 所以可以直接传递给函数
-
             props.onUpdate.call(self, this);
             self.onTweenUpdate.call(self, this)
         });
 
-        tween.onComplete(function () {
-            if (id !== null) {
-                cancelAnimationFrame(id);
-                id = null;
-            }
-        });
+        tween.onComplete(cancelAnimate);
 
         tween.onStop(function () {
-            if (id !== null) {
-                cancelAnimationFrame(id);
-                id = null;
-            }
+            cancelAnimate();
             props.onStop.call(this);
         });
 
         tween.start();
 
-        fn = function (time) {
-            id = requestAnimationFrame(fn);
+        cancelAnimate = function () {
+            if (id !== null) {
+                cancelAnimationFrame(id);
+                id = null;
+            }
+        };
+
+        animate = function (time) {
+            id = requestAnimationFrame(animate);
             TWEEN.update(time);
         };
 
-        fn();
+        animate();
     },
 
     componentDidMount: function () {

@@ -2,18 +2,11 @@
 
 var React = require('react');
 var AnimateMixin = require('./AnimateMixin');
-var assert = require('../../lib/assert');
+var assert = require('../../com/assert');
 
 var Animate = React.createClass({
 
     mixins: [AnimateMixin],
-
-    getInitialState: function () {
-        return {
-            className: 'comp-animate',
-            to: {}
-        };
-    },
 
     render: function () {
         var children = this.props.children;
@@ -31,7 +24,9 @@ var Animate = React.createClass({
             return React.cloneElement(child, {parent: self});
         });
 
-        return (<Components className={this.state.className} style={this.styleProps()}>
+        return (<Components
+            className={this.props.className}
+            style={this.styleProps()}>
             {children}
         </Components>)
     }

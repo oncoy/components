@@ -21,10 +21,8 @@ var TWEEN = require('tween');
 // 最简单的调用
 ReactDOM.render(
     <Animate
-        from={{left:0}}
-        during={500}
         to={{left:400}}
-        styleProps={{position:'absolute', background: 'red', overflow: 'hidden'}}>
+        styleProps={{position:'absolute', background: 'red'}}>
         <AnimateChild name="Animate Child" key="animate-child"/>
     </Animate>,
     document.getElementById('demo')
