@@ -14,6 +14,10 @@ var React = require('react');
 
 module.exports = {
 
+    getInitialState: function () {
+        return {to: {}}
+    },
+
     propTypes: {
         component: React.PropTypes.string,
         styleProps: React.PropTypes.object,
@@ -36,7 +40,7 @@ module.exports = {
         return assign(props, {
             className: '',
             component: 'span',
-            styleProps: {},
+            styleProps: {position: 'absolute'},
             from: {},
             to: {},
             during: 1000,
@@ -54,11 +58,11 @@ module.exports = {
         this.setState({to: result})
     },
 
-    backToTheStart: function () {
-        this.animate(this.props.to, this.props.from);
+    backToTheStart: function (callback) {
+        this.animate(this.props.to, this.props.from, callback);
     },
 
-    animate: function (from, to) {
+    animate: function (from, to, callback) {
         var self = this;
         var id = null;
         var props = this.props;
@@ -85,7 +89,10 @@ module.exports = {
             self.onTweenUpdate.call(self, this)
         });
 
-        tween.onComplete(cancelAnimate);
+        tween.onComplete(function () {
+            callback && callback();
+            cancelAnimate();
+        });
 
         tween.onStop(function () {
             cancelAnimate();
