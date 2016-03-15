@@ -11,6 +11,7 @@ module.exports = {
         onChange: React.PropTypes.func,
         className: React.PropTypes.string,
         itemClassName: React.PropTypes.string,
-        checkedClassName: React.PropTypes.string
+        checkedClassName: React.PropTypes.string,
+        defaultChecked: React.PropTypes.any
     }
 };

@@ -25,39 +25,39 @@ var Conditional = React.createClass({
             onChange: noop,
             className: 'conditional',
             itemClassName: 'cond-item',
-            checkedClassName: 'checked'
+            checkedClassName: 'checked',
+            defaultChecked: null
         }
     },
 
     onChecked: function (isChecked, currentValue) {
-        var self = this;
-        var prev = self.state.checkedItemValue;
+        var prev = this.state.checkedItemValue;
 
-        self.props.onChecked(isChecked, currentValue);
+        this.setState({checkedItemValue: isChecked ? currentValue : null});
+        this.props.onChecked(isChecked, currentValue);
 
-        if (currentValue === self.state.checkedItemValue)
-            return self;
-
-        self.setState({checkedItemValue: currentValue}, function () {
-            self.props.onChange(prev, currentValue);
-        });
+        if (isChecked) {
+            if (prev !== currentValue)
+                this.props.onChange(prev, currentValue)
+        }
     },
 
+    componentWillMount: function () {
+        this.setState({checkedItemValue: this.props.defaultChecked});
+    },
 
     render: function () {
         var props = this.props;
 
         var items = props.itemList.map(function (item) {
-            return <ConditionItem
+
+            return (<ConditionItem
                 key={item.value}
                 isChecked={this.state.checkedItemValue === item.value}
-                className={props.itemClassName}
                 onChecked={this.onChecked}
-                onChange={this.onChange}
-                checkedClassName={props.checkedClassName}
                 value={item.value}>
                 {item.children}
-            </ConditionItem>;
+            </ConditionItem>);
         }, this);
 
         return (<div className={props.className}>

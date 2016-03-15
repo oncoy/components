@@ -13,15 +13,21 @@ var conditionDemoData = [
     {value: 3, children: 'd'}
 ];
 
-var log = function (args) {
-    console.log(args)
+var log = function () {
+    console.info(arguments)
 };
 
 ReactDOM.render(
     <Condition
         itemList={conditionDemoData}
-        onChecked={log}
-        onChange={log}
+        onChecked={function(isChecked, value) {
+          log('onChecked');
+          log(isChecked, value);
+        }}
+        onChange={function(prev, current) {
+          log('onChange');
+          log(prev, current);
+        }}
     />,
 
     document.getElementById('demo')

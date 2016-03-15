@@ -29,21 +29,27 @@ var ConditionItem = React.createClass({
         }
     },
 
-    onChecked: function () {
-        var self = this;
-
-        self.setState({isChecked: !self.state.isChecked}, function () {
-            self.props.onChecked(self.state.isChecked, self.props.value);
-        });
+    componentWillMount: function () {
+        this.setState({isChecked: this.props.isChecked})
     },
 
+    // 该组件设计得有点绕
+    componentWillReceiveProps: function (nextProps) {
+        this.setState({isChecked: nextProps.isChecked})
+    },
+
+    onChecked: function () {
+        this.setState({isChecked: !this.state.isChecked}, function () {
+            this.props.onChecked(this.state.isChecked, this.props.value);
+        });
+    },
 
     render: function () {
         var props = this.props;
         var className = {};
 
         className[props.className] = true;
-        className[props.checkedClassName] = this.props.isChecked;
+        className[props.checkedClassName] = props.isChecked;
 
         return (<span
             className={classNames(className)}
