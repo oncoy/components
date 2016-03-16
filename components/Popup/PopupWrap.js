@@ -27,46 +27,65 @@ var removeEvent = function (elem, type, handle, capture) {
 var PopupWrap = React.createClass({
 
     getInitialState: function () {
-        return {isVisible: true}
+        return {
+            left: 0,
+            top: 0
+        }
     },
 
     getDefaultProps: function () {
         return {
             component: 'div',
-            style: {backgroundColor: '#fff'},
+            styleProps: {backgroundColor: '#fff'},
             children: null,
             onVisible: noop,
-            exceptElement: null
+            exceptElement: null,
+            isVisible: false
         }
     },
 
     componentDidMount: function () {
         var self = this;
-        this.setState({isVisible: this.props.isVisible});
 
         this.__body = document.body || document.documentElement.body;
 
         this.__bodyHandle = function (e) {
             var target = e.target || e.srcElement;
             var mountNode = ReactDOM.findDOMNode(self);
+            var props = self.props;
 
-            var canUnmount = !contains(mountNode, target) && (self.props.exceptElement ?
-                        !contains(self.props.exceptElement, target) :
-                        true
-                );
+            if (props.exceptElement && contains(props.exceptElement, target)) {
+                return
+            }
 
-            if (canUnmount) {
-                var parent = self.props.parent;
+            if (!contains(mountNode, target)) {
+                var parent = props.parent;
 
                 if (parent && parent.backToTheStart)
                     parent.backToTheStart(function () {
-                        ReactDOM.unmountComponentAtNode(mountNode);
-                        self.props.onVisible();
+                        props.onVisible();
                     });
             }
         };
+
         addEvent(this.__body, 'click', this.__bodyHandle, false);
-        this.setState({isVisible: this.props.isVisible})
+
+        var node = this.__node = ReactDOM.findDOMNode(this);
+        var position = {x: node.offsetWidth, y: node.offsetHeight};
+
+        switch (this.props.placement) {
+            case "top":
+                position.x = -position.x / 2;
+                position.y = -position.y;
+                break;
+            case "bottom":
+                position.x = -position.x / 2;
+                break;
+            default:
+                position.x = 0;
+                position.y = 0;
+        }
+        this.setState({left: position.x, top: position.y})
     },
 
     componentWillUnmount: function () {
@@ -76,9 +95,13 @@ var PopupWrap = React.createClass({
     render: function () {
         var props = this.props;
         var Component = props.component;
-        var style = assign({}, props.style);
+        var style = assign({}, props.styleProps, {
+            top: this.state.top,
+            left: this.state.left,
+            position: 'absolute'
+        });
 
-        if (this.state.isVisible) {
+        if (props.isVisible) {
             style = assign(style, {display: 'none'})
         }
 

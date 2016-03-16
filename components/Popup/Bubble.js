@@ -7,16 +7,17 @@ var Bubble = React.createClass({
 
     getDefaultProps: function () {
         return {
-            placement: 'top'
+            placement: 'top',
+            styleProps: {}
         }
     },
 
     getClassName: function () {
         var dir = {
-                top: 't',
-                right: 'r',
-                bottom: 'd',
-                left: 'l'
+                top: 'd',
+                right: 'l',
+                bottom: 't',
+                left: 'r'
             }[this.props.placement] || 't';
 
         return {
@@ -25,11 +26,12 @@ var Bubble = React.createClass({
         }
     },
 
+
     render: function () {
 
         var classNames = this.getClassName();
 
-        return (<div className={classNames.wrapperClass}>
+        return (<div className={classNames.wrapperClass} style={this.props.styleProps}>
             <span className={classNames.symbolClass}/>
             <div className="bub-con bub-all-pd">
                 {this.props.children}

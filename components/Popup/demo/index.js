@@ -5,23 +5,25 @@
 var ReactDOM = require('react-dom');
 var Popup = require('../Popup');
 var Bubble = require('../Bubble');
+var content = <div style={{width: 200}}>Popup组件中的元素，在body被点击后，会隐藏</div>;
 
 ReactDOM.render(
-    <Popup content="Popup组件中的元素，在body被点击后，会隐藏">
-        <button>点击显示弹层</button>
+    <Popup
+        placement="top"
+        content={content}>
+        <button>靠上的弹层</button>
     </Popup>,
     document.getElementById('demo')
 );
 
-var content = <Bubble>
-    <strong>Popup组件中的元素，在body被点击后，会隐藏</strong>
+content = <Bubble>
+    <div styleProps={{width:270}}>Popup组件中的元素，在body被点击后，会隐藏</div>
 </Bubble>;
 
 
 ReactDOM.render(
-    <Popup placement="top"
-           content={content}>
-        <button>点击显示弹层</button>
+    <Popup placement="right" content={content}>
+        <button>靠右的弹层</button>
     </Popup>,
     document.getElementById('demo-1')
 );
