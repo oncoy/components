@@ -13,5 +13,6 @@ let _path = function (name) {
 module.exports = {
     Animate: _path('Animate'),
     Conditional: _path('Conditional'),
-    Popup: _path('Popup')
+    Popup: _path('Popup'),
+    Message: _path('Message')
 };

@@ -10,7 +10,9 @@
     "essa"
   ],
   "dependencies": {
-    "classnames": "~2.2.0"
+    "classnames": "~2.2.0",
+    "react-redux": "^4.4.1",
+    "redux": "^3.3.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
