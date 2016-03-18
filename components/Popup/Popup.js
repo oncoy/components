@@ -7,6 +7,7 @@ var ReactDOM = require('react-dom');
 var PopupWrap = require('./PopupWrap');
 var Animate = require('../Animate');
 var absolutePosition = require('../../com/absolutePosition');
+var POPUP_GAP = 5;
 
 var Popup = React.createClass({
 
@@ -17,6 +18,11 @@ var Popup = React.createClass({
     },
 
     getDefaultProps: function () {
+        this.__popupMountNode = null;
+        this.__position = null;
+        this.__content = null;
+        this.__body = null;
+
         return {
             animate: {
                 from: {opacity: 0},
@@ -44,11 +50,17 @@ var Popup = React.createClass({
         // 在该组件内，只需将最外层定位到对应位置
         // 不用理会内容的size
         switch (placement) {
+            case "top":
+                pos.y = pos.y - POPUP_GAP;
+                break;
             case "right":
-                pos.x = pos.x + w;
+                pos.x = pos.x + w + POPUP_GAP;
                 break;
             case "bottom":
-                pos.y = pos.y + h;
+                pos.y = pos.y + h + POPUP_GAP;
+                break;
+            case "left":
+                pos.x = pos.x - POPUP_GAP;
                 break;
         }
 
@@ -63,8 +75,9 @@ var Popup = React.createClass({
     },
 
     onVisible: function () {
-        this.setState({isVisible: true}, function () {
-            ReactDOM.unmountComponentAtNode(this.__popupMountNode);
+        var self = this;
+        self.setState({isVisible: true}, function () {
+            ReactDOM.unmountComponentAtNode(self.__popupMountNode);
         });
     },
 
@@ -80,7 +93,7 @@ var Popup = React.createClass({
 
         ReactDOM.render(
             <Animate
-                styleProps={{position:'absolute', left: this.__position.x, top: this.__position.y}}
+                style={{position:'absolute', left: this.__position.x, top: this.__position.y}}
                 component="div"
                 from={props.animate.from}
                 to={props.animate.to}
@@ -98,17 +111,21 @@ var Popup = React.createClass({
         );
     },
 
-    togglePopup: function () {
-        this.setState({isVisible: !this.state.isVisible});
+    showPopup: function () {
+        this.setState({isVisible: false});
     },
 
     componentWillUnmount: function () {
-        this.__body.removeChild(this.__popupMountNode);
+        try {
+            this.__body.removeChild(this.__popupMountNode);
+        } catch (e) {
+        }
     },
 
     render: function () {
+
         return React.cloneElement(this.props.children, {
-            onClick: this.togglePopup,
+            onClick: this.showPopup,
             ref: 'targetNode'
         });
     }

@@ -20,7 +20,6 @@ var Animate = React.createClass({
         assert(children.length, "children is required");
 
         children = React.Children.map(children, function (child) {
-            assert(children.key !== 'undefined', "children key is required");
             return React.cloneElement(child, {parent: self});
         });
 

@@ -19,8 +19,24 @@ ReactDOM.render(
 );
 
 ReactDOM.render(
-    <Popup placement="right" content={content}>
+    <Popup
+        placement="right"
+        content={content}>
         <button>靠右的弹层</button>
     </Popup>,
     document.getElementById('demo-1')
+);
+
+ReactDOM.render(
+    <Popup placement="bottom" content={content}>
+        <button>靠下的弹层</button>
+    </Popup>,
+    document.getElementById('demo-2')
+);
+
+ReactDOM.render(
+    <Popup placement="left" content={content}>
+        <button>靠左的弹层</button>
+    </Popup>,
+    document.getElementById('demo-3')
 );

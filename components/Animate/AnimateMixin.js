@@ -20,7 +20,7 @@ module.exports = {
 
     propTypes: {
         component: React.PropTypes.string,
-        styleProps: React.PropTypes.object,
+        style: React.PropTypes.object,
         from: React.PropTypes.object,
         to: React.PropTypes.object,
         during: React.PropTypes.number,
@@ -51,7 +51,7 @@ module.exports = {
     },
 
     styleProps: function () {
-        return assign({}, this.state.to, this.props.styleProps);
+        return assign({}, this.state.to, this.props.style);
     },
 
     onTweenUpdate: function (result) {

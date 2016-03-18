@@ -37,9 +37,13 @@ var PopupWrap = React.createClass({
     },
 
     getDefaultProps: function () {
+        this.__body = null;
+        this.__bodyHandle = null;
+        this.__node = null;
+
         return {
             component: 'div',
-            styleProps: {backgroundColor: '#fff'},
+            style: {backgroundColor: '#fff'},
             children: null,
             onVisible: noop,
             exceptElement: null,
@@ -82,12 +86,18 @@ var PopupWrap = React.createClass({
                 position.y = -position.y;
                 break;
             case "bottom":
-                position.x = -position.x / 2;
+                position.x = -(position.x - this.props.refTarget.offsetWidth) / 2;
+                position.y = 0;
+                break;
+            case "left":
+                position.x = -position.x;
+                position.y = 0;
                 break;
             default:
                 position.x = 0;
                 position.y = 0;
         }
+
         this.setState({left: position.x, top: position.y})
     },
 
@@ -98,10 +108,10 @@ var PopupWrap = React.createClass({
     render: function () {
         var props = this.props;
         var Component = props.component;
-        var style = assign({}, props.styleProps, {
+        var style = assign({}, props.style, {
             top: this.state.top,
             left: this.state.left,
-            position: 'absolute'
+            position: 'relative'
         });
 
         if (props.isVisible) {
