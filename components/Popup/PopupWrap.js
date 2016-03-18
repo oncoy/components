@@ -1,5 +1,8 @@
 /**
  * Created by xcp on 2016/3/15.
+ * PopupWrap 的作用：
+ * 1. 确定 popup 的位置
+ * 2. 监听 body click 事件，卸载元素
  */
 
 var React = require('react');
@@ -54,7 +57,7 @@ var PopupWrap = React.createClass({
             var mountNode = ReactDOM.findDOMNode(self);
             var props = self.props;
 
-            if (props.exceptElement && contains(props.exceptElement, target)) {
+            if (props.refTarget && contains(props.refTarget, target)) {
                 return
             }
 
@@ -75,7 +78,7 @@ var PopupWrap = React.createClass({
 
         switch (this.props.placement) {
             case "top":
-                position.x = -position.x / 2;
+                position.x = -(position.x - this.props.refTarget.offsetWidth) / 2;
                 position.y = -position.y;
                 break;
             case "bottom":

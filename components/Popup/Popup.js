@@ -90,7 +90,7 @@ var Popup = React.createClass({
                     placement={props.placement}
                     isVisible={this.state.isVisible}
                     onVisible={this.onVisible}
-                    exceptElement={this.refs.targetNode}>
+                    refTarget={this.refs.targetNode}>
                     {this.__content}
                 </PopupWrap>
             </Animate>,

@@ -5,7 +5,9 @@
 var ReactDOM = require('react-dom');
 var Popup = require('../Popup');
 var Bubble = require('../Bubble');
-var content = <div style={{width: 200}}>Popup组件中的元素，在body被点击后，会隐藏</div>;
+var content = <Bubble>
+    <div style={{width:270}}>Popup组件中的元素，在body被点击后，会隐藏</div>
+</Bubble>;
 
 ReactDOM.render(
     <Popup
@@ -15,11 +17,6 @@ ReactDOM.render(
     </Popup>,
     document.getElementById('demo')
 );
-
-content = <Bubble>
-    <div styleProps={{width:270}}>Popup组件中的元素，在body被点击后，会隐藏</div>
-</Bubble>;
-
 
 ReactDOM.render(
     <Popup placement="right" content={content}>
