@@ -6,11 +6,11 @@ var React = require('react');
 var assert = require('../../com/assert');
 var noop = require('../../com/noop');
 var ConditionItem = require('./ConditionItem');
-var ConditionMixins = require('./ConditionMixins');
+var ConditionMixin = require('./ConditionMixin');
 
 var Conditional = React.createClass({
 
-    mixins: [ConditionMixins],
+    mixins: [ConditionMixin],
 
     getInitialState: function () {
         return {
@@ -36,9 +36,8 @@ var Conditional = React.createClass({
         this.setState({checkedItemValue: isChecked ? currentValue : null});
         this.props.onChecked(isChecked, currentValue);
 
-        if (isChecked) {
-            if (prev !== currentValue)
-                this.props.onChange(prev, currentValue)
+        if (isChecked && prev !== currentValue) {
+            this.props.onChange(prev, currentValue)
         }
     },
 
@@ -50,7 +49,6 @@ var Conditional = React.createClass({
         var props = this.props;
 
         var items = props.itemList.map(function (item) {
-
             return (<ConditionItem
                 key={item.value}
                 isChecked={this.state.checkedItemValue === item.value}

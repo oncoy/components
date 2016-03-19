@@ -3,10 +3,18 @@
  */
 
 var Message = require('../index');
-var React = require('react');
-var ReactDOM = require('react-dom');
 
-ReactDOM.render(
-    <Message message="message"/>,
-    document.getElementById('demo')
-);
+function __message(message, log) {
+    return function () {
+        Message(message, function () {
+            console.log(log)
+        })
+    }
+}
+
+setTimeout(__message('message', 1), 0);
+setTimeout(__message('message', 2), 500);
+setTimeout(__message('message', 3), 1000);
+setTimeout(__message('message', 4), 1500);
+setTimeout(__message('message', 5), 2000);
+setTimeout(__message('message', 6), 2500);

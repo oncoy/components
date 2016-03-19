@@ -2,7 +2,7 @@
  * Created by xcp on 2016/3/14.
  */
 
-var TweenEventMapping = ['Start', 'Update', 'Complete', 'Stop'];
+var TweenEvents = ['Start', 'Update', 'Complete', 'Stop'];
 var noop = require('../../com/noop');
 var TWEEN = require('tween');
 var Tween = TWEEN.Tween;
@@ -13,10 +13,6 @@ var assign = require('object-assign');
 var React = require('react');
 
 module.exports = {
-
-    getInitialState: function () {
-        return {to: {}}
-    },
 
     propTypes: {
         component: React.PropTypes.string,
@@ -30,10 +26,14 @@ module.exports = {
         className: React.PropTypes.string
     },
 
+    getInitialState: function () {
+        return {to: {}}
+    },
+
     getDefaultProps: function () {
         var props = {};
 
-        TweenEventMapping.forEach(function (name) {
+        TweenEvents.forEach(function (name) {
             props['on' + name] = noop;
         });
 
@@ -46,6 +46,7 @@ module.exports = {
             during: 1000,
             delay: 0,
             repeat: 0,
+            componentDidMount: noop,
             easing: TWEEN.Easing.Linear.None
         });
     },
@@ -86,7 +87,7 @@ module.exports = {
             // this 为 tween 中的 props 对象
             // 所以可以直接传递给函数
             props.onUpdate.call(self, this);
-            self.onTweenUpdate.call(self, this)
+            self.onTweenUpdate.call(self, this);
         });
 
         tween.onComplete(function () {
@@ -117,6 +118,7 @@ module.exports = {
     },
 
     componentDidMount: function () {
-        this.animate(this.props.from, this.props.to);
+        this.props.componentDidMount(this);
+        this.animate(this.props.from, this.props.to, this.props.onComplete);
     }
 };

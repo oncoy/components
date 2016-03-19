@@ -8,24 +8,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var assign = require('object-assign');
-var contains = require('../../com/contains');
 var noop = require('../../com/noop');
-
-var addEvent = function (elem, type, handle, capture) {
-    if (elem.addEventListener) {
-        elem.addEventListener(type, handle, capture);
-    } else {
-        elem.attachEvent('on' + type, handle, capture);
-    }
-};
-
-var removeEvent = function (elem, type, handle, capture) {
-    if (elem.removeEventListener) {
-        elem.removeEventListener(type, handle, capture)
-    } else {
-        elem.detachEvent('on' + type, handle, capture)
-    }
-};
+var contains = require('../../com/DOM/contains');
+var DOMEvent = require('../../com/DOM/DOMEvent');
+var body = require('../../com/DOM/DOMBody');
 
 var PopupWrap = React.createClass({
 
@@ -39,7 +25,6 @@ var PopupWrap = React.createClass({
     getDefaultProps: function () {
         this.__body = null;
         this.__bodyHandle = null;
-        this.__node = null;
 
         return {
             component: 'div',
@@ -53,8 +38,6 @@ var PopupWrap = React.createClass({
 
     componentDidMount: function () {
         var self = this;
-
-        this.__body = document.body || document.documentElement.body;
 
         this.__bodyHandle = function (e) {
             var target = e.target || e.srcElement;
@@ -75,9 +58,9 @@ var PopupWrap = React.createClass({
             }
         };
 
-        addEvent(this.__body, 'click', this.__bodyHandle, false);
+        DOMEvent.on(body, 'click', this.__bodyHandle, false);
 
-        var node = this.__node = ReactDOM.findDOMNode(this);
+        var node = ReactDOM.findDOMNode(this);
         var position = {x: node.offsetWidth, y: node.offsetHeight};
 
         switch (this.props.placement) {
@@ -102,7 +85,7 @@ var PopupWrap = React.createClass({
     },
 
     componentWillUnmount: function () {
-        removeEvent(this.__body, 'click', this.__bodyHandle, false)
+        DOMEvent.off(body, 'click', this.__bodyHandle, false);
     },
 
     render: function () {

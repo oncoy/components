@@ -1,28 +1,29 @@
 /**
- * Created by xcp on 2016/3/18.
- * 全局提示信息，会自动隐藏掉
- * 如果有多个信息同时出现，则依次排成一列
+ * Created by xcp on 2016/3/19.
  */
+"use strict";
 
-var React = require('react');
 var ReactDOM = require('react-dom');
-var Animate = require('../Animate');
-var AutoUnmountMixins = require('./AutoUnmountMixins');
+var Message = require('./Message');
+var body = require('../../com/DOM/DOMBody');
+var mountNodeWrap = document.createElement('div');
+mountNodeWrap.style.cssText = 'position:absolute;top:20px;left:50%;';
+body.appendChild(mountNodeWrap);
 
-var Message = React.createClass({
+module.exports = function (message, callback) {
+    var mountNode = document.createElement('div');
+    mountNode.style.cssText = 'margin-bottom:10px';
+    mountNodeWrap.appendChild(mountNode);
+    var afterClose = function () {
+        callback && callback();
+        mountNodeWrap.removeChild(mountNode);
+    };
 
-    mixins: [AutoUnmountMixins],
+    ReactDOM.render(
+        <Message
+            message={message}
+            afterClose={afterClose}/>,
+        mountNode
+    )
+};
 
-    componentDidMount: function () {
-        this.__backToTheStart = this.__message.props.parent.backToTheStart;
-    },
-
-    render: function () {
-        var message = this.__message = <span>{this.props.message}</span>;
-        return (<Animate>
-            {message}
-        </Animate>);
-    }
-});
-
-module.exports = Message;
