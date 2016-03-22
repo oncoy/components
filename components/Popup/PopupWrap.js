@@ -9,9 +9,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var assign = require('object-assign');
 var noop = require('../../com/noop');
-var contains = require('../../com/DOM/contains');
 var DOMEvent = require('../../com/DOM/DOMEvent');
-var body = require('../../com/DOM/DOMBody');
+var HideOnBodyClick = require('../HideOnBodyClick');
 
 var PopupWrap = React.createClass({
 
@@ -23,44 +22,18 @@ var PopupWrap = React.createClass({
     },
 
     getDefaultProps: function () {
-        this.__body = null;
-        this.__bodyHandle = null;
 
         return {
-            component: 'div',
             style: {backgroundColor: '#fff'},
-            children: null,
             onVisible: noop,
-            exceptElement: null,
+            refTarget: null,
+            placement: 'top',
             isVisible: false
         }
     },
 
     componentDidMount: function () {
-        var self = this;
-
-        this.__bodyHandle = function (e) {
-            var target = e.target || e.srcElement;
-            var mountNode = ReactDOM.findDOMNode(self);
-            var props = self.props;
-
-            if (props.refTarget && contains(props.refTarget, target)) {
-                return
-            }
-
-            if (!contains(mountNode, target)) {
-                var parent = props.parent;
-
-                if (parent && parent.backToTheStart)
-                    parent.backToTheStart(function () {
-                        props.onVisible();
-                    });
-            }
-        };
-
-        DOMEvent.on(body, 'click', this.__bodyHandle, false);
-
-        var node = ReactDOM.findDOMNode(this);
+        var node = ReactDOM.findDOMNode(this.refs.popup);
         var position = {x: node.offsetWidth, y: node.offsetHeight};
 
         switch (this.props.placement) {
@@ -84,26 +57,30 @@ var PopupWrap = React.createClass({
         this.setState({left: position.x, top: position.y})
     },
 
-    componentWillUnmount: function () {
-        DOMEvent.off(body, 'click', this.__bodyHandle, false);
-    },
-
     render: function () {
         var props = this.props;
-        var Component = props.component;
-        var style = assign({}, props.style, {
+        var style = {
             top: this.state.top,
             left: this.state.left,
-            position: 'relative'
-        });
+            position: 'absolute'
+        };
 
         if (props.isVisible) {
             style = assign(style, {display: 'none'})
         }
 
-        return (<Component style={style}>
-            {props.children}
-        </Component>)
+        var children = React.cloneElement(props.children, {
+            style: style,
+            placement: props.placement,
+            ref: 'popup'
+        });
+
+        return (<HideOnBodyClick
+            refTarget={props.refTarget}
+            style={props.style}
+            onVisible={props.onVisible}>
+            {children}
+        </HideOnBodyClick>)
     }
 });
 

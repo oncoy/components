@@ -7,6 +7,7 @@ var ReactDOM = require('react-dom');
 var PopupWrap = require('./PopupWrap');
 var Animate = require('../Animate');
 var absolutePosition = require('../../com/absolutePosition');
+var body = require('../../com/DOM/DOMBody');
 var POPUP_GAP = 5;
 
 var Popup = React.createClass({
@@ -18,11 +19,6 @@ var Popup = React.createClass({
     },
 
     getDefaultProps: function () {
-        this.__popupMountNode = null;
-        this.__position = null;
-        this.__content = null;
-        this.__body = null;
-
         return {
             animate: {
                 from: {opacity: 0},
@@ -32,14 +28,18 @@ var Popup = React.createClass({
         }
     },
 
+    componentWillMount: function () {
+        this.__popupMountNode = null;
+        this.__position = null;
+        this.__content = null;
+    },
+
     // Invoked once, only on the client
     componentDidMount: function () {
-        var body = this.__body = document.body || document.documentElement;
         var popupMountNode = this.__popupMountNode = document.createElement('div');
         body.appendChild(popupMountNode);
 
         var props = this.props;
-        // todo 全局定位弹窗位置
         var targetNode = this.refs.targetNode;
         // 左上角的位置
         var pos = absolutePosition(targetNode);
@@ -88,25 +88,17 @@ var Popup = React.createClass({
 
     renderPopup: function () {
         if (!this.isMounted()) return;
-
         var props = this.props;
 
         ReactDOM.render(
-            <Animate
-                style={{position:'absolute', left: this.__position.x, top: this.__position.y}}
-                component="div"
-                from={props.animate.from}
-                to={props.animate.to}
-                during={props.animate.during}>
-                <PopupWrap
-                    style={{position:'absolute'}}
-                    placement={props.placement}
-                    isVisible={this.state.isVisible}
-                    onVisible={this.onVisible}
-                    refTarget={this.refs.targetNode}>
-                    {this.__content}
-                </PopupWrap>
-            </Animate>,
+            <PopupWrap
+                style={{position:'absolute',left: this.__position.x, top: this.__position.y}}
+                placement={props.placement}
+                isVisible={this.state.isVisible}
+                onVisible={this.onVisible}
+                refTarget={this.refs.targetNode}>
+                {this.__content}
+            </PopupWrap>,
             this.__popupMountNode
         );
     },
@@ -123,7 +115,6 @@ var Popup = React.createClass({
     },
 
     render: function () {
-
         return React.cloneElement(this.props.children, {
             onClick: this.showPopup,
             ref: 'targetNode'
