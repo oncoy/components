@@ -34,7 +34,8 @@ var Pagination = React.createClass({
             pageSize: 5,
             // invoke when page number changed
             onChange: noop,
-            getPageElement: function (num, isCurrent) {
+            onSelect: noop,
+            getPage: function (num, isCurrent) {
                 return <span className={'page-item' + (isCurrent ? ' focus' : '')}>{num}</span>
             }
         }
@@ -42,13 +43,23 @@ var Pagination = React.createClass({
 
     componentWillMount: function () {
         var props = this.props;
+        var pages = Math.ceil(props.total / props.itemsInOnePage);
+        var showPages = pages > props.pageSize ? props.pageSize : pages;
+
         this.__computed = {
-            pages: Math.ceil(props.total / props.itemsInOnePage)
+            pages: pages,
+            showPages: showPages,
+            currentPageOffset: Math.ceil(showPages / 2) - 1
         };
     },
 
+    componentDidMount: function () {
+        this.skip(this.props.defaultCurrent)
+    },
+
     onSelect: function (num) {
-        this.skip(num)
+        this.skip(num);
+        this.props.onSelect(num);
     },
 
     prev: function () {
@@ -59,7 +70,7 @@ var Pagination = React.createClass({
         this.skip(this.state.current + 1)
     },
 
-    skip: function (num) {
+    skip: function (num, silent) {
         if (num < 1
             || num > this.__computed.pages
             || num === this.state.current)
@@ -67,31 +78,65 @@ var Pagination = React.createClass({
 
         var self = this;
         self.setState({current: num}, function () {
-            self.props.onChange(num)
+            if (!silent)
+                self.props.onChange(num)
+        })
+    },
+
+    _getCurrentStart: function (page) {
+        // 只需要保持 current 在一个固定位置
+        // 即可保证鼠标下一次点击的时候不会点击在同一个 number 上
+        // 点击固定位置的右边 -> next
+        // 点击因定位置的右边 -> prev
+        // 该函数需要根据 page 确认当前页码的开始位置
+        var computed = this.__computed;
+        var start = page - computed.currentPageOffset;
+
+        // 衡量边界 start > 0 && pages > start + showPages
+        return start + computed.showPages > computed.pages ?
+            (computed.pages - computed.showPages + 1) :
+            start > 1 ? start : 1;
+    },
+
+    _getPage: function (num, isCurrent) {
+        return React.cloneElement(this.props.getPage(num, isCurrent), {
+            onClick: this.onSelect.bind(this, num),
+            key: num
         })
     },
 
     render: function () {
         var props = this.props;
-        var computedPages = this.__computed.pages;
+        var computed = this.__computed;
         var current = this.state.current;
-        var pages = computedPages > props.pageSize ?
-            props.pageSize :
-            computedPages;
+        var start = this._getCurrentStart(current);
+        var prev, next;
 
-        var pageItems = new Array(Math.min(computedPages - current, pages))
+        if (start > 1) {
+            prev = [1, 2].map(function (v) {
+                return this._getPage(v, current === v);
+            }, this)
+        }
+
+        var pageItems = new Array(computed.showPages)
             .fill(1)
-            .map(function (v, i) {
-                var num = current + i;
-                var item = props.getPageElement(num, i === 0);
-                return React.cloneElement(item, {
-                    onClick: this.onSelect.bind(this, num),
-                    key: num
-                })
+            .map(function () {
+                var num = start++;
+                return this._getPage(num, num === current);
             }, this);
 
+        if (start < computed.pages) {
+            next = [computed.pages - 1, computed.pages].map(function (v) {
+                return this._getPage(v, current === v)
+            }, this)
+        }
+
         return <div className="pagination">
+            {prev}
+            {prev ? <span className="page-item default"/> : null}
             {pageItems}
+            {next ? <span className="page-item default"/> : null}
+            {next}
         </div>
     }
 });
