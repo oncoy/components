@@ -80,7 +80,9 @@ DropDown.Item = React.createClass({
     },
 
     render: function () {
-        return this.props.getItemContent(this.props.value, {onClick: this.onSelect});
+        return this.props.children ?
+            React.cloneElement(this.props.children, {onClick: this.onSelect}) :
+            this.props.getItemContent(this.props.value, {onClick: this.onSelect});
     }
 });
 
@@ -118,7 +120,9 @@ DropDown.Selector = React.createClass({
     },
 
     render: function () {
-        return this.props.getSelectorContent(this.state.currentSelectedValue)
+        return this.props.children ?
+            this.props.children :
+            this.props.getSelectorContent(this.state.currentSelectedValue)
     }
 });
 

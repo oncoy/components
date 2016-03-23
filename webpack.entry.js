@@ -15,5 +15,6 @@ module.exports = {
     Conditional: _path('Conditional'),
     Popup: _path('Popup'),
     Message: _path('Message'),
-    Selectable: _path('Selectable')
+    Selectable: _path('Selectable'),
+    Pagination: _path('Pagination')
 };
