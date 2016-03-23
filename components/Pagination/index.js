@@ -32,6 +32,7 @@ var Pagination = React.createClass({
             itemsInOnePage: 10,
             // pages in one item
             pageSize: 5,
+            keepPages: 2,
             // invoke when page number changed
             onChange: noop,
             onSelect: noop,
@@ -95,7 +96,7 @@ var Pagination = React.createClass({
         // 衡量边界 start > 0 && pages > start + showPages
         return start + computed.showPages > computed.pages ?
             (computed.pages - computed.showPages + 1) :
-            start > 1 ? start : 1;
+            start > this.props.keepPages ? start : 1;
     },
 
     _getPage: function (num, isCurrent) {
@@ -112,23 +113,28 @@ var Pagination = React.createClass({
         var start = this._getCurrentStart(current);
         var prev, next;
 
-        if (start > 1) {
-            prev = [1, 2].map(function (v) {
-                return this._getPage(v, current === v);
-            }, this)
+        if (start > props.keepPages) {
+            prev = new Array(props.keepPages)
+                .fill(1)
+                .map(function (v, i) {
+                    return this._getPage(i + 1, i + 1 === v);
+                }, this)
         }
 
         var pageItems = new Array(computed.showPages)
             .fill(1)
             .map(function () {
                 var num = start++;
-                return this._getPage(num, num === current);
+                return this._getPage(num, current === num);
             }, this);
 
         if (start < computed.pages) {
-            next = [computed.pages - 1, computed.pages].map(function (v) {
-                return this._getPage(v, current === v)
-            }, this)
+            next = new Array(props.keepPages)
+                .fill(1)
+                .map(function (v, i) {
+                    var num = computed.pages - i;
+                    return this._getPage(num, current === num)
+                }, this)
         }
 
         return <div className="pagination">
