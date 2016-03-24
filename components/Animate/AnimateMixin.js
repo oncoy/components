@@ -91,7 +91,7 @@ module.exports = {
         });
 
         tween.onComplete(function () {
-            callback && callback();
+            typeof callback === 'function' && callback();
             cancelAnimate();
         });
 
