@@ -5,9 +5,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var PopupWrap = require('./PopupWrap');
-var Animate = require('../Animate');
 var absolutePosition = require('../../com/absolutePosition');
 var body = require('../../com/DOM/DOMBody');
+var noop = require('../../com/noop');
 var POPUP_GAP = 5;
 
 var Popup = React.createClass({
@@ -24,14 +24,21 @@ var Popup = React.createClass({
                 from: {opacity: 0},
                 to: {opacity: 1},
                 during: 500
-            }
+            },
+            trigger: 'click',
+            onComponentMount: noop
         }
+    },
+
+    getTrigger: function () {
+        return {click: 'onClick', hover: 'onMouseEnter'}[this.props.trigger] || 'onClick'
     },
 
     componentWillMount: function () {
         this.__popupMountNode = null;
         this.__position = null;
         this.__content = null;
+        this.__isUnmount = false;
     },
 
     // Invoked once, only on the client
@@ -72,18 +79,33 @@ var Popup = React.createClass({
         this.__content = React.cloneElement(props.content, {
             placement: props.placement
         });
+
+        this.props.onComponentMount(this);
     },
 
     onVisible: function () {
+        if (this.__isUnmount) return;
         var self = this;
         self.setState({isVisible: true}, function () {
             ReactDOM.unmountComponentAtNode(self.__popupMountNode);
-        });
+        })
     },
 
     componentDidUpdate: function (prevProps, prevState) {
         if (this.state.isVisible !== prevState.isVisible)
             this.renderPopup()
+    },
+
+    autoVisible: function () {
+        if (this.__isUnmount) return;
+        var self = this;
+        if (self.__animate) {
+            self.__animate.backToTheStart(function () {
+                self.setState({isVisible: true}, function () {
+                    ReactDOM.unmountComponentAtNode(self.__popupMountNode);
+                })
+            })
+        }
     },
 
     renderPopup: function () {
@@ -92,6 +114,7 @@ var Popup = React.createClass({
 
         ReactDOM.render(
             <PopupWrap
+                onAnimateMount={this.onAnimateMount}
                 style={{position:'absolute',left: this.__position.x, top: this.__position.y}}
                 placement={props.placement}
                 isVisible={this.state.isVisible}
@@ -107,18 +130,26 @@ var Popup = React.createClass({
         this.setState({isVisible: false});
     },
 
+    onAnimateMount: function (animate) {
+        this.__animate = animate;
+    },
+
     componentWillUnmount: function () {
+        this.__isUnmount = true;
         try {
-            this.__body.removeChild(this.__popupMountNode);
+            body.removeChild(this.__popupMountNode);
         } catch (e) {
         }
     },
 
     render: function () {
-        return React.cloneElement(this.props.children, {
-            onClick: this.showPopup,
-            ref: 'targetNode'
-        });
+        var props = {ref: 'targetNode'};
+        props[this.getTrigger()] = this.showPopup;
+        if (props.onMouseEnter) {
+            props.onMouseLeave = this.autoVisible
+        }
+
+        return React.cloneElement(this.props.children, props);
     }
 });
 

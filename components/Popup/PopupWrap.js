@@ -28,7 +28,8 @@ var PopupWrap = React.createClass({
             onVisible: noop,
             refTarget: null,
             placement: 'top',
-            isVisible: false
+            isVisible: false,
+            onAnimateMount: noop
         }
     },
 
@@ -70,7 +71,7 @@ var PopupWrap = React.createClass({
         }
 
         var children = React.cloneElement(props.children, {
-            style: style,
+            style: assign(style, props.children.props.style),
             placement: props.placement,
             ref: 'popup'
         });
@@ -78,6 +79,7 @@ var PopupWrap = React.createClass({
         return (<HideOnBodyClick
             refTarget={props.refTarget}
             style={props.style}
+            onAnimateMount={props.onAnimateMount}
             onVisible={props.onVisible}>
             {children}
         </HideOnBodyClick>)

@@ -5,9 +5,15 @@
 var React = require('react');
 var Bubble = React.createClass({
 
+    propTypes: {
+        symBolClass: React.PropTypes.array
+    },
+
     getDefaultProps: function () {
         return {
             placement: 'top',
+            symbolStyle: {},
+            symbolClass: [],
             style: {}
         }
     },
@@ -29,9 +35,13 @@ var Bubble = React.createClass({
     render: function () {
 
         var classNames = this.getClassName();
+        var symbolClassName = this.props.symbolClass.length > 0 ?
+            (' ' + this.props.symbolClass.join(' ')) :
+            '';
 
         return (<div className={classNames.wrapperClass} style={this.props.style}>
-            <span className={classNames.symbolClass}/>
+            <span className={classNames.symbolClass + symbolClassName}
+                  style={this.props.symbolStyle}/>
             <div className="bub-con bub-all-pd">
                 {this.props.children}
             </div>

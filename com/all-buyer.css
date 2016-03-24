@@ -506,6 +506,9 @@ fieldset[disabled] .btn-info.focus {
 .bub {
   position: relative;
 }
+.bub .icon-close-yellow {
+  cursor: pointer;
+}
 .bub-con,
 .bub-dialog,
 .comp-custom-select .comp-select-panel {
