@@ -159,7 +159,7 @@ ReactDOM.render(
             onComponentMount={holdPopup}
             placement="top"
             content={<ComplexPanel/>}>
-            <span className="color-link">content 为一个完整的 React.Element </span>
+            <span className="color-link">憋说话，点我！看源码！</span>
         </Popup>,
         document.getElementById('unmount-with-other-complex')
     );
