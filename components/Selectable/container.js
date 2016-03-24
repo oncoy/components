@@ -4,83 +4,14 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-var DropDown = require('./DropDown');
+var HideOnBodyClick = require('../HideOnBodyClick');
+var classNames = require('classnames');
 var noop = require('../../com/noop');
-
-var getSelectorContent = function (item) {
-    var className = 'progress-' + (item.percent * 100) + ' progress-bar-text';
-    return <div className="comp-select-selector">
-        <div className="comp-select-progress">
-            <span className={className}/>
-        </div>
-        <span className="icon-img icon-tran-black-d"/>
-    </div>
-
-};
-
-var getItemContent = function (item, removeFunc) {
-    removeFunc = removeFunc || noop;
-    var className = 'progress-' + (item.percent * 100) + ' progress-bar-text';
-    return <DropDown.Item value={item}>
-        <li className="comp-panel-item">
-            <strong className="comp-icon-gap">{item.index}</strong>
-            <div className="comp-select-progress comp-icon-gap">
-                <span className={className}/>
-            </div>
-            <span className="icon-img icon-close util-v-m"
-                  onClick={removeFunc.bind(this, item)}/>
-
-        </li>
-    </DropDown.Item>;
-};
+var SelectableMixin = require('./SelectableMixin');
 
 var Container = React.createClass({
 
-    getInitialState: function () {
-        return {
-            currentSelectedValue: null
-        }
-    },
-
-    getDefaultProps: function () {
-        var itemList = [
-            {percent: 0, index: 0},
-            {percent: 0, index: 1},
-            {percent: 0, index: 2},
-            {percent: 0, index: 3},
-            {percent: 0, index: 4},
-            {percent: 0, index: 5},
-            {percent: 0, index: 6},
-            {percent: 0, index: 7},
-            {percent: 0, index: 8},
-            {percent: 0, index: 9}
-        ];
-
-        return {
-            itemList: itemList,
-            defaultSelectedValue: itemList[0],
-            onSelect: noop,
-            getSelectorContent: getSelectorContent,
-            getItemContent: getItemContent
-        }
-    },
-
-    removeOne: function (item) {
-        console.log(item)
-    },
-
-    onSelect: function (value) {
-        var self = this;
-        self.setState({currentSelectedValue: value}, function () {
-            self.props.onSelect(value);
-        });
-    },
-
-    ensureEvent: function () {
-        var value = this.state.currentSelectedValue;
-        return value !== this.props.rejectValue ||
-            (value && typeof value === 'object' && !value.target)
-    },
+    mixins: [SelectableMixin],
 
     reRender: function (itemList) {
         var mountNode = ReactDOM.findDOMNode(this).parentNode;
@@ -102,30 +33,69 @@ var Container = React.createClass({
         this.reRender(this.props.itemList);
     },
 
-    render: function () {
-        var self = this;
-        var props = self.props;
+    removeOne: function (item) {
+        var index = this.props.itemList.indexOf(item);
+        if (index !== -1) {
+            this.props.itemList.splice(index, 1)
+        }
+        this.reRender(this.props.itemList)
+    },
 
-        var panelContent = props.itemList.map(function (item) {
-            return props.getItemContent.call(this, item, this.removeOne)
+    getProgressClassName: function (percent) {
+        var className = {'progress-bar-text': true};
+        className['progress-' + parseInt(percent * 100)] = true;
+        return classNames(className);
+    },
+
+    render: function () {
+        var panelClassName = {
+            'comp-custom-select': true,
+            'comp-show-panel': this.state.panelStateIsShow
+        };
+
+        var progressClassName = this.getProgressClassName(
+            this.state.currentSelectedValue ?
+                this.state.currentSelectedValue.percent :
+                0
+        );
+
+        var itemList = this.props.itemList.map(function (item) {
+            return <li className="comp-panel-item" key={item.index}>
+                <strong className="comp-icon-gap">{item.index}</strong>
+                <div className="comp-select-progress comp-icon-gap"
+                     onClick={this.onSelect.bind(this, item)}>
+                    <span className={this.getProgressClassName(item.percent)}/>
+                </div>
+                <span
+                    className="icon-img icon-close util-v-m"
+                    onClick={this.removeOne.bind(this, item)}/>
+            </li>
         }, this);
 
-        var addElement = <DropDown.Item isItem={false}>
-            <li className="comp-panel-title util-text-center">
-                <span className="icon-img icon-plus util-v-m" onClick={this.addOne}/>
-            </li>
-        </DropDown.Item>;
-
-        panelContent.push(addElement);
-
-        var selector = <DropDown.Selector
-            onSelect={self.onSelect}
-            defaultSelectedValue={props.defaultSelectedValue}
-            getSelectorContent={props.getSelectorContent}/>;
-
-        return <DropDown
-            selectorContent={selector}
-            panelContent={panelContent}/>
+        return (<div className={classNames(panelClassName)} ref="selectable">
+            <div className="comp-select-selector-pd">
+                <div className="comp-select-selector" onClick={this.showPanel}>
+                    <div className="comp-select-progress">
+                        <span className={progressClassName}/>
+                    </div>
+                    <span className="icon-img icon-tran-black-d"/>
+                </div>
+            </div>
+            <HideOnBodyClick
+                refTarget={this.refs.selectable}
+                onVisible={this.onVisible}
+                onAnimateMount={this.onAnimateMount}
+                triggerHide={this.triggerHide}>
+                <div className="comp-select-panel comp-progress-panel">
+                    <ol className="comp-select-m-t">
+                        {itemList}
+                        <li className="comp-panel-title util-text-center">
+                            <span className="icon-img icon-plus util-v-m" onClick={this.addOne}/>
+                        </li>
+                    </ol>
+                </div>
+            </HideOnBodyClick>
+        </div>)
     }
 });
 

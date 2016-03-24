@@ -5,5 +5,6 @@
 module.exports = {
     Number: require('./number'),
     Diff: require('./different'),
-    Container: require('./container')
+    Container: require('./container'),
+    FOContainer: require('./firstOutContainer')
 };

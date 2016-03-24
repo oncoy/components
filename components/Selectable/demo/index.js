@@ -37,7 +37,18 @@ ReactDOM.render(
 
 // 自定义下拉菜单-货柜详情列表
 ReactDOM.render(
-    <Selector.Container onSelect={log}/>,
+    <Selector.Container
+        itemList={[{index:0, percent:0.8},{index:1, percent:0.23}]}
+        onSelect={log}/>,
     document.getElementById('container')
+);
+
+// 自定义下拉菜单-先出货柜
+ReactDOM.render(
+    <Selector.FOContainer
+        firstOut={[{index:2, percent: 0.2}]}
+        itemList={[{index:0, percent:0.8},{index:1, percent:0.23}]}
+        onSelect={log}/>,
+    document.getElementById('fo-container')
 );
 
