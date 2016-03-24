@@ -27,7 +27,7 @@ var getItemContent = function (value, props) {
     return React.cloneElement(item, props);
 };
 
-var Number = React.createClass({
+var Importable = React.createClass({
 
     getInitialState: function () {
         return {
@@ -95,4 +95,4 @@ var Number = React.createClass({
     }
 });
 
-module.exports = Number;
+module.exports = Importable;

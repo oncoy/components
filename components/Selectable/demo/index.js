@@ -6,19 +6,20 @@ var Selector = require('../index');
 var DropDown = require('../DropDown');
 var ReactDOM = require('react-dom');
 var React = require('react');
+
 var log = function () {
     console.info(arguments)
 };
 
 ReactDOM.render(
-    <Selector.Number onSelect={log}/>,
+    <Selector.Importable onSelect={log}/>,
     document.getElementById('demo')
 );
 
 // 自定义内容
 var itemList = ['全部时间', '3天内', '7天内', '30天内', '其他'];
 ReactDOM.render(
-    <Selector.Number
+    <Selector.Importable
         onSelect={log}
         itemList={itemList}
         defaultSelectedValue={itemList[0]}
@@ -34,7 +35,6 @@ ReactDOM.render(
     document.getElementById('diff')
 );
 
-
 // 自定义下拉菜单-货柜详情列表
 ReactDOM.render(
     <Selector.Container
@@ -44,11 +44,24 @@ ReactDOM.render(
 );
 
 // 自定义下拉菜单-先出货柜
+var containers = [
+    {index: 0, percent: 0.8},
+    {index: 1, percent: 0.23},
+    {index: 2, percent: 0.23},
+    {index: 12, percent: 0.83}
+];
+
 ReactDOM.render(
     <Selector.FOContainer
-        firstOut={[{index:2, percent: 0.2}]}
-        itemList={[{index:0, percent:0.8},{index:1, percent:0.23}]}
+        firstOut={[containers[2]]}
+        itemList={containers}
         onSelect={log}/>,
     document.getElementById('fo-container')
 );
 
+ReactDOM.render(
+    <Selector.MiniContainer
+        itemList={containers}
+        onSelect={log}/>,
+    document.getElementById('mini-container')
+);

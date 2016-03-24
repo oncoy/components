@@ -3,8 +3,9 @@
  */
 
 module.exports = {
-    Number: require('./number'),
-    Diff: require('./different'),
-    Container: require('./container'),
-    FOContainer: require('./firstOutContainer')
+    Importable: require('./Importable'),
+    Diff: require('./Different'),
+    Container: require('./Container'),
+    FOContainer: require('./FirstOutContainer'),
+    MiniContainer: require('./MiniContainer')
 };

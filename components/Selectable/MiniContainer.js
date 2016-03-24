@@ -6,18 +6,17 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var HideOnBodyClick = require('../HideOnBodyClick');
 var classNames = require('classnames');
-var noop = require('../../com/noop');
 
 var SelectableMixin = require('./SelectableMixin');
 var ContainerMixin = require('./ContainerMixin');
 
-var Container = React.createClass({
+var MiniContainer = React.createClass({
 
     mixins: [SelectableMixin, ContainerMixin],
 
     reRender: function (itemList) {
         var mountNode = ReactDOM.findDOMNode(this).parentNode;
-        ReactDOM.render(<Container
+        ReactDOM.render(<MiniContainer
                 itemList={itemList}
                 onSelect={this.props.onSelect}
                 defaultSelectedValue={this.props.defaultSelectedValue}/>,
@@ -30,26 +29,24 @@ var Container = React.createClass({
             'comp-show-panel': this.state.panelStateIsShow
         };
 
-        var progressText = 'progress-bar-text';
-
         var progressClassName = this.getProgressClassName(
             this.state.currentSelectedValue ?
                 this.state.currentSelectedValue.percent :
                 0,
-            progressText
+            'progress-bar-text'
         );
 
         var itemList = this.props.itemList.map(function (item) {
-            return <li className="comp-panel-item" key={item.index}>
-                <strong className="comp-icon-gap">{item.index}</strong>
-                <div className="comp-select-progress comp-icon-gap"
-                     onClick={this.onSelect.bind(this, item)}>
-                    <span className={this.getProgressClassName(item.percent, progressText)}/>
+            return (<div className="col-xs-4" key={item.index}>
+                <div className="comp-mini-item" onClick={this.onSelect.bind(this, item)}>
+                    <div className="row">
+                        <strong className="col-xs-4 util-text-right">{item.index}</strong>
+                        <div className="col-xs-8">
+                            <span className={this.getProgressClassName(item.percent)}/>
+                        </div>
+                    </div>
                 </div>
-                <span
-                    className="icon-img icon-close util-v-m"
-                    onClick={this.removeOne.bind(this, item)}/>
-            </li>
+            </div>);
         }, this);
 
         return (<div className={classNames(panelClassName)} ref="selectable">
@@ -66,17 +63,19 @@ var Container = React.createClass({
                 onVisible={this.onVisible}
                 onAnimateMount={this.onAnimateMount}
                 triggerHide={this.triggerHide}>
-                <div className="comp-select-panel comp-progress-panel">
-                    <ol className="comp-select-m-t">
-                        {itemList}
-                        <li className="comp-panel-title util-text-center">
-                            <span className="icon-img icon-plus util-v-m" onClick={this.addOne}/>
-                        </li>
-                    </ol>
+                <div className="comp-select-panel comp-progress-panel comp-mini-progress">
+                    <div className="comp-select-m-t">
+                        <div className="row">
+                            {itemList}
+                            <div className="comp-panel-title util-text-center col-xs-12">
+                                <span className="icon-img icon-plus util-v-m" onClick={this.addOne}/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </HideOnBodyClick>
         </div>)
     }
 });
 
-module.exports = Container;
+module.exports = MiniContainer;
