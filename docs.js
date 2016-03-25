@@ -6,7 +6,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var markdownParse = require('markdown').parse;
+var markdownParse = require('markdown').markdown.toHTML;
 
 function Parse(config) {
     this._defaultConfig = {
