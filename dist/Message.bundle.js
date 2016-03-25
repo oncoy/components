@@ -171,18 +171,18 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = TWEEN;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
 	"use strict";
 
 	/**
 	 * Created by xcp on 2016/3/19.
 	 */
 	module.exports = document.body || document.documentElement;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = TWEEN;
 
 /***/ },
 /* 8 */
@@ -234,7 +234,7 @@
 
 	var TweenEvents = ['Start', 'Update', 'Complete', 'Stop'];
 	var noop = __webpack_require__(2);
-	var TWEEN = __webpack_require__(6);
+	var TWEEN = __webpack_require__(7);
 	var Tween = TWEEN.Tween;
 	var requestAnimation = __webpack_require__(8);
 	var requestAnimationFrame = requestAnimation.requestAnimationFrame;
@@ -506,7 +506,7 @@
 
 	var ReactDOM = __webpack_require__(3);
 	var Message = __webpack_require__(24);
-	var body = __webpack_require__(7);
+	var body = __webpack_require__(6);
 	var mountNodeWrap = document.createElement('div');
 	mountNodeWrap.style.cssText = 'position:absolute;top:20px;left:50%;';
 	body.appendChild(mountNodeWrap);

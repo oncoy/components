@@ -139,6 +139,12 @@ ReactDOM.render(
             }
         },
 
+        componentDidMount: function () {
+            // refs.content is standardized DOM
+            // content can accept children that from other for example angular
+            console.log(this.refs.content)
+        },
+
         render: function () {
             // 需要继承父级传入的 style
             // 用于指定绝对位置
@@ -149,7 +155,7 @@ ReactDOM.render(
                     className="btn btn-sm btn-primary"
                     onClick={this.unmountPopup}>删除
                 </button>
-                <span className="bub-text-gap-lg">确定删除该贴纸吗?</span>
+                <span className="bub-text-gap-lg" ref="content">确定删除该贴纸吗?</span>
             </Bubble>
         }
     });

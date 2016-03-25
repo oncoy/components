@@ -195,18 +195,18 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = TWEEN;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
 	"use strict";
 
 	/**
 	 * Created by xcp on 2016/3/19.
 	 */
 	module.exports = document.body || document.documentElement;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = TWEEN;
 
 /***/ },
 /* 8 */
@@ -258,7 +258,7 @@
 
 	var TweenEvents = ['Start', 'Update', 'Complete', 'Stop'];
 	var noop = __webpack_require__(2);
-	var TWEEN = __webpack_require__(6);
+	var TWEEN = __webpack_require__(7);
 	var Tween = TWEEN.Tween;
 	var requestAnimation = __webpack_require__(8);
 	var requestAnimationFrame = requestAnimation.requestAnimationFrame;
@@ -479,7 +479,7 @@
 	var Animate = __webpack_require__(10);
 	var contains = __webpack_require__(14);
 	var DOMEvent = __webpack_require__(13);
-	var body = __webpack_require__(7);
+	var body = __webpack_require__(6);
 	var noop = __webpack_require__(2);
 	var assert = __webpack_require__(4);
 	var triggerHide = function triggerHide() {
@@ -571,7 +571,7 @@
 	    return result;
 	};
 
-	var body = __webpack_require__(7);
+	var body = __webpack_require__(6);
 	var isW3c = !!body.addEventListener;
 	var ADD_EVENT_NAME = isW3c ? 'addEventListener' : 'attachEvent';
 	var REMOVE_EVENT_NAME = isW3c ? 'removeEventListener' : 'detachEvent';

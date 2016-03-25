@@ -175,6 +175,12 @@ ReactDOM.render(React.createElement(
             }
         },
 
+        componentDidMount: function componentDidMount() {
+            // do something
+            // refs.content is standardized DOM
+            console.log(this.refs.content);
+        },
+
         render: function render() {
             // 需要继承父级传入的 style
             // 用于指定绝对位置
@@ -192,7 +198,7 @@ ReactDOM.render(React.createElement(
                 ),
                 React.createElement(
                     'span',
-                    { className: 'bub-text-gap-lg' },
+                    { className: 'bub-text-gap-lg', ref: 'content' },
                     '确定删除该贴纸吗?'
                 )
             );

@@ -136,6 +136,12 @@
 	            }
 	        },
 
+	        componentDidMount: function componentDidMount() {
+	            // do something
+	            // refs.content is standardized DOM
+	            console.log(this.refs.content);
+	        },
+
 	        render: function render() {
 	            // 需要继承父级传入的 style
 	            // 用于指定绝对位置
@@ -143,7 +149,7 @@
 	                style: assign(this.props.style, { width: 210 }),
 	                symbolStyle: { left: '50%', marginLeft: -10 } }, React.createElement('button', {
 	                className: 'btn btn-sm btn-primary',
-	                onClick: this.unmountPopup }, '删除'), React.createElement('span', { className: 'bub-text-gap-lg' }, '确定删除该贴纸吗?'));
+	                onClick: this.unmountPopup }, '删除'), React.createElement('span', { className: 'bub-text-gap-lg', ref: 'content' }, '确定删除该贴纸吗?'));
 	        }
 	    });
 
@@ -257,18 +263,18 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = TWEEN;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
 	"use strict";
 
 	/**
 	 * Created by xcp on 2016/3/19.
 	 */
 	module.exports = document.body || document.documentElement;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = TWEEN;
 
 /***/ },
 /* 8 */
@@ -320,7 +326,7 @@
 
 	var TweenEvents = ['Start', 'Update', 'Complete', 'Stop'];
 	var noop = __webpack_require__(2);
-	var TWEEN = __webpack_require__(6);
+	var TWEEN = __webpack_require__(7);
 	var Tween = TWEEN.Tween;
 	var requestAnimation = __webpack_require__(8);
 	var requestAnimationFrame = requestAnimation.requestAnimationFrame;
@@ -488,7 +494,7 @@
 	var Animate = __webpack_require__(10);
 	var contains = __webpack_require__(14);
 	var DOMEvent = __webpack_require__(13);
-	var body = __webpack_require__(7);
+	var body = __webpack_require__(6);
 	var noop = __webpack_require__(2);
 	var assert = __webpack_require__(4);
 	var triggerHide = function triggerHide() {
@@ -580,7 +586,7 @@
 	    return result;
 	};
 
-	var body = __webpack_require__(7);
+	var body = __webpack_require__(6);
 	var isW3c = !!body.addEventListener;
 	var ADD_EVENT_NAME = isW3c ? 'addEventListener' : 'attachEvent';
 	var REMOVE_EVENT_NAME = isW3c ? 'removeEventListener' : 'detachEvent';
@@ -805,7 +811,7 @@
 	var ReactDOM = __webpack_require__(3);
 	var PopupWrap = __webpack_require__(30);
 	var absolutePosition = __webpack_require__(18);
-	var body = __webpack_require__(7);
+	var body = __webpack_require__(6);
 	var noop = __webpack_require__(2);
 	var POPUP_GAP = 5;
 

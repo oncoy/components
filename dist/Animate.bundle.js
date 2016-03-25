@@ -61,7 +61,7 @@
 	    }
 	});
 
-	var TWEEN = __webpack_require__(6);
+	var TWEEN = __webpack_require__(7);
 
 	// 最简单的调用
 	ReactDOM.render(React.createElement(Animate, {
@@ -181,13 +181,13 @@
 
 
 /***/ },
-/* 6 */
+/* 6 */,
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = TWEEN;
 
 /***/ },
-/* 7 */,
 /* 8 */
 /***/ function(module, exports) {
 
@@ -237,7 +237,7 @@
 
 	var TweenEvents = ['Start', 'Update', 'Complete', 'Stop'];
 	var noop = __webpack_require__(2);
-	var TWEEN = __webpack_require__(6);
+	var TWEEN = __webpack_require__(7);
 	var Tween = TWEEN.Tween;
 	var requestAnimation = __webpack_require__(8);
 	var requestAnimationFrame = requestAnimation.requestAnimationFrame;
