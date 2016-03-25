@@ -74,9 +74,6 @@ var Selectable = React.createClass({
             selector = props.selectorContent;
         }
 
-        // todo 加载完成后，应该计算最长的宽度是多少，以免换行
-        // 或者应该用样式自己控制？如果此处写死了 width，也是个麻烦
-        // 再说吧
         return (<div className={className} ref="selectable">
             <div className="comp-select-selector-pd">
                 {selector}
