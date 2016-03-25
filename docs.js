@@ -6,7 +6,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var markdown = require('markdown').markdown;
+var markdownParse = require('markdown').parse;
 
 function Parse(config) {
     this._defaultConfig = {
@@ -49,49 +49,41 @@ Parse.prototype.readFile = function (p) {
 Parse.prototype.mkdirs = function (toPath, callback) {
     // 目录只能一级一级的创建
     var sep = path.dirname(toPath).split(path.sep);
-    console.log(toPath, 'toPath');
+    var mode = parseInt('0777', 8);
 
     if (typeof callback !== 'function') {
         callback = function () {
         };
     }
-
     var __inner = function (cur) {
-        fs.stat(cur, function (err, stats) {
-            if (err) {
-                // 报错肯定是表示没有该目录
-                // 所以可以直接创建
-                fs.mkdir(cur, function (e) {
-                    if (e) throw e;
-                    else if (sep.length)__inner(path.join(cur, sep.shift()));
-                    else callback()
-                });
-            }
-            // 如果不报错，说明已经存在【暂不考虑是否是一个目录的问题】
-            else if (sep.length) {
-                __inner(path.join(cur, sep.shift()))
-            } else {
-                callback()
-            }
-        })
+        var stats = null;
+        try {
+            stats = fs.statSync(cur);
+        } catch (e) {
+            fs.mkdirSync(cur, mode);
+        }
+
+        if (stats && !stats.isDirectory()) {
+            fs.mkdirSync(cur, mode);
+        }
+
+        if (sep.length) {
+            __inner(path.join(cur, sep.shift()))
+        } else {
+            callback()
+        }
     };
 
     sep.length && __inner(sep.shift())
 };
 
 Parse.prototype.writeFile = function (from, to) {
-    var readStream = fs.createReadStream(from, 'utf8');
-    fs.open(to, 'w', function (err, fd) {
-        if (err) throw err;
+    var reader = fs.createReadStream(from, 'utf8');
+    var writer = fs.createWriteStream(to, 'utf8');
 
-        var writeStream = fs.createWriteStream(to, {
-            fd: fd,
-            encoding: 'utf8'
-        });
-
-        readStream.pipe(writeStream);
+    reader.on('data', function (chunk) {
+        return writer.write(markdownParse(chunk));
     });
-
 };
 
 Parse.prototype.getParseFilePath = function (p) {
