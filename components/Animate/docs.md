@@ -1,0 +1,11 @@
+## Animate
+* props
+ + component
+ + style
+ + from
+ + to
+ + during
+ + delay
+ + repeat
+ + easing
+ + className
