@@ -52,7 +52,7 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(3);
-	var Condition = __webpack_require__(22);
+	var Condition = __webpack_require__(23);
 
 	var conditionDemoData = [{ value: 0, children: 'a' }, { value: 1, children: 'b' }, { value: 2, children: 'c' }, { value: 3, children: 'd' }];
 
@@ -134,7 +134,8 @@
 /* 8 */,
 /* 9 */,
 /* 10 */,
-/* 11 */
+/* 11 */,
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -188,14 +189,14 @@
 
 
 /***/ },
-/* 12 */,
 /* 13 */,
 /* 14 */,
 /* 15 */,
 /* 16 */,
 /* 17 */,
 /* 18 */,
-/* 19 */
+/* 19 */,
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -206,8 +207,8 @@
 
 	var React = __webpack_require__(1);
 	var noop = __webpack_require__(2);
-	var ConditionMixins = __webpack_require__(21);
-	var classNames = __webpack_require__(11);
+	var ConditionMixins = __webpack_require__(22);
+	var classNames = __webpack_require__(12);
 
 	var ConditionItem = React.createClass({
 	    displayName: 'ConditionItem',
@@ -264,30 +265,6 @@
 	module.exports = ConditionItem;
 
 /***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * Created by xcp on 2016/3/14.
-	 */
-
-	var React = __webpack_require__(1);
-
-	module.exports = {
-	    propTypes: {
-	        itemList: React.PropTypes.array,
-	        onChecked: React.PropTypes.func,
-	        onChange: React.PropTypes.func,
-	        className: React.PropTypes.string,
-	        itemClassName: React.PropTypes.string,
-	        checkedClassName: React.PropTypes.string,
-	        defaultChecked: React.PropTypes.any
-	    }
-	};
-
-/***/ },
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -322,10 +299,34 @@
 	 */
 
 	var React = __webpack_require__(1);
+
+	module.exports = {
+	    propTypes: {
+	        itemList: React.PropTypes.array,
+	        onChecked: React.PropTypes.func,
+	        onChange: React.PropTypes.func,
+	        className: React.PropTypes.string,
+	        itemClassName: React.PropTypes.string,
+	        checkedClassName: React.PropTypes.string,
+	        defaultChecked: React.PropTypes.any
+	    }
+	};
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Created by xcp on 2016/3/14.
+	 */
+
+	var React = __webpack_require__(1);
 	var assert = __webpack_require__(4);
 	var noop = __webpack_require__(2);
-	var ConditionItem = __webpack_require__(19);
-	var ConditionMixin = __webpack_require__(20);
+	var ConditionItem = __webpack_require__(20);
+	var ConditionMixin = __webpack_require__(21);
 
 	var Conditional = React.createClass({
 	    displayName: 'Conditional',

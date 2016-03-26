@@ -51,7 +51,7 @@
 	 * Created by xcp on 2016/3/23.
 	 */
 
-	var Pagination = __webpack_require__(26);
+	var Pagination = __webpack_require__(27);
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(3);
 
@@ -106,7 +106,7 @@
 
 /***/ },
 
-/***/ 26:
+/***/ 27:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

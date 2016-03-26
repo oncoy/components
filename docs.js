@@ -6,7 +6,56 @@
 
 var fs = require('fs');
 var path = require('path');
-var markdownParse = require('markdown').markdown.toHTML;
+
+var hljs = require('highlight');
+var md = require('markdown-it')('commonmark', {
+    html: true,
+    linkify: true,
+    typographer: true,
+    highlight: function (str, lang) {
+        if (lang) {
+            try {
+                return hljs.highlight(lang, str, true).value;
+            } catch (e) {
+            }
+        }
+        return '';
+    }
+});
+
+var _addtionalHtml = function (body) {
+    return `<!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Document</title>
+            <link rel="stylesheet" href="../../lib/highlight/github.css">
+            <link rel="stylesheet" href="../../lib/github-markdown.css">
+            <script src="../../lib/highlight/highlight.min.js"></script>
+            <style>
+                .markdown-body {
+                    box-sizing: border-box;
+                    min-width: 200px;
+                    max-width: 980px;
+                    margin: 0 auto;
+                    padding: 45px;
+                }
+            </style>
+        </head>
+        <body class="markdown-body">
+            ${body}
+        </body>
+        <script>
+            hljs.initHighlightingOnLoad();
+            var body = document.body;
+            var cssText = 'height:' + body.scrollHeight + 'px;';
+            var iframe = window.parent.document.body.querySelector('iframe');
+            if(iframe){
+                iframe.style.cssText = cssText;
+            }
+        </script>
+        </html>`;
+};
 
 function Parse(config) {
     this._defaultConfig = {
@@ -82,7 +131,7 @@ Parse.prototype.writeFile = function (from, to) {
     var writer = fs.createWriteStream(to, 'utf8');
 
     reader.on('data', function (chunk) {
-        return writer.write(markdownParse(chunk));
+        return writer.write(_addtionalHtml(md.render(chunk)));
     });
 };
 

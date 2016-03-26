@@ -176,8 +176,8 @@ ReactDOM.render(React.createElement(
         },
 
         componentDidMount: function componentDidMount() {
-            // do something
             // refs.content is standardized DOM
+            // content can accept children that from other for example angular
             console.log(this.refs.content);
         },
 

@@ -50,7 +50,7 @@
 	 * Created by xcp on 2016/3/18.
 	 */
 
-	var Message = __webpack_require__(25);
+	var Message = __webpack_require__(26);
 
 	function __message(message, log) {
 	    return function () {
@@ -60,12 +60,12 @@
 	    };
 	}
 
-	setTimeout(__message('message', 1), 0);
-	setTimeout(__message('message', 2), 500);
-	setTimeout(__message('message', 3), 1000);
-	setTimeout(__message('message', 4), 1500);
-	setTimeout(__message('message', 5), 2000);
-	setTimeout(__message('message', 6), 2500);
+	setTimeout(__message('message-1', 1), 0);
+	setTimeout(__message('message-2', 2), 500);
+	setTimeout(__message('message-3', 3), 1000);
+	setTimeout(__message('message-4', 4), 1500);
+	setTimeout(__message('message-5', 5), 2000);
+	setTimeout(__message('message-6', 6), 2500);
 
 /***/ },
 /* 1 */
@@ -126,6 +126,17 @@
 /* 5 */
 /***/ function(module, exports) {
 
+	"use strict";
+
+	/**
+	 * Created by xcp on 2016/3/19.
+	 */
+	module.exports = document.body || document.documentElement;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
 	/* eslint-disable no-unused-vars */
 	'use strict';
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -166,17 +177,6 @@
 		return to;
 	};
 
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	/**
-	 * Created by xcp on 2016/3/19.
-	 */
-	module.exports = document.body || document.documentElement;
 
 /***/ },
 /* 7 */
@@ -239,7 +239,7 @@
 	var requestAnimation = __webpack_require__(8);
 	var requestAnimationFrame = requestAnimation.requestAnimationFrame;
 	var cancelAnimationFrame = requestAnimation.cancelAnimationFrame;
-	var assign = __webpack_require__(5);
+	var assign = __webpack_require__(6);
 	var React = __webpack_require__(1);
 
 	module.exports = {
@@ -399,7 +399,8 @@
 /* 20 */,
 /* 21 */,
 /* 22 */,
-/* 23 */
+/* 23 */,
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -458,7 +459,7 @@
 	};
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -471,7 +472,7 @@
 
 	var React = __webpack_require__(1);
 	var Animate = __webpack_require__(10);
-	var AutoUnmountMixin = __webpack_require__(23);
+	var AutoUnmountMixin = __webpack_require__(24);
 	var noop = __webpack_require__(2);
 
 	var Message = React.createClass({
@@ -496,7 +497,7 @@
 	module.exports = Message;
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -505,8 +506,8 @@
 	"use strict";
 
 	var ReactDOM = __webpack_require__(3);
-	var Message = __webpack_require__(24);
-	var body = __webpack_require__(6);
+	var Message = __webpack_require__(25);
+	var body = __webpack_require__(5);
 	var mountNodeWrap = document.createElement('div');
 	mountNodeWrap.style.cssText = 'position:absolute;top:20px;left:50%;';
 	body.appendChild(mountNodeWrap);

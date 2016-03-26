@@ -14,6 +14,7 @@ module.exports = {
     Animate: _path('Animate'),
     Conditional: _path('Conditional'),
     Popup: _path('Popup'),
+    HideOnBodyClick: _path('HideOnBodyClick'),
     Message: _path('Message'),
     Selectable: _path('Selectable'),
     Pagination: _path('Pagination')

@@ -9,5 +9,7 @@ module.exports = {
     Diff: require('./Different'),
     Container: require('./Container'),
     FOContainer: require('./FirstOutContainer'),
-    MiniContainer: require('./MiniContainer')
+    MiniContainer: require('./MiniContainer'),
+    DropDown: require('./DropDown'),
+    Selectable: require('./Selectable')
 };

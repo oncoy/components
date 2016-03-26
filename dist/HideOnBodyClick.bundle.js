@@ -47,38 +47,14 @@
 	'use strict';
 
 	/**
-	 * Created by xcp on 2016/3/12.
+	 * Created by xcp on 2016/3/22.
 	 */
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(3);
-	var Animate = __webpack_require__(10);
-	var AnimateChild = React.createClass({
-	    displayName: 'AnimateChild',
-	    render: function render() {
-	        var parent = this.props.parent;
-	        return React.createElement('div', null, React.createElement('p', null, this.props.name), React.createElement('button', { onClick: parent.backToTheStart.bind(parent, null) }, '出场'));
-	    }
-	});
+	var HideOnBodyClick = __webpack_require__(11);
 
-	var TWEEN = __webpack_require__(7);
-
-	// 最简单的调用
-	ReactDOM.render(React.createElement(Animate, {
-	    from: { left: 0 },
-	    to: { left: 400 },
-	    style: { position: 'absolute', background: 'red' } }, React.createElement(AnimateChild, { name: 'Animate Child', key: 'animate-child' })), document.getElementById('demo'));
-
-	// 传入参数
-	ReactDOM.render(React.createElement(Animate, {
-	    from: { left: 0 },
-	    during: 500,
-	    repeat: 2,
-	    delay: 300,
-	    component: 'div',
-	    to: { left: 400 },
-	    easing: TWEEN.Easing.Back.InOut,
-	    style: { position: 'absolute', background: 'red', overflow: 'hidden', top: 50 } }, React.createElement(AnimateChild, { name: 'Animate Child 1', key: 'animate-child-1-1' })), document.getElementById('demo-1'));
+	ReactDOM.render(React.createElement(HideOnBodyClick, null, React.createElement('span', { className: 'widget-bg-text' }, '点body其他地方，我就不见了...Biu~Biu~Biu~')), document.getElementById('demo'));
 
 /***/ },
 /* 1 */
@@ -136,7 +112,17 @@
 	};
 
 /***/ },
-/* 5 */,
+/* 5 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	/**
+	 * Created by xcp on 2016/3/19.
+	 */
+	module.exports = document.body || document.documentElement;
+
+/***/ },
 /* 6 */
 /***/ function(module, exports) {
 
@@ -388,6 +374,157 @@
 	});
 
 	module.exports = Animate;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Created by xcp on 2016/3/22.
+	 */
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(3);
+	var Animate = __webpack_require__(10);
+	var contains = __webpack_require__(14);
+	var DOMEvent = __webpack_require__(13);
+	var body = __webpack_require__(5);
+	var noop = __webpack_require__(2);
+	var assert = __webpack_require__(4);
+	var triggerHide = function triggerHide() {
+	    return true;
+	};
+
+	var HideOnBodyClick = React.createClass({
+	    displayName: 'HideOnBodyClick',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            isVisible: true
+	        };
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            component: 'div',
+	            isVisible: true,
+	            refTarget: null,
+	            onVisible: noop,
+	            onAnimateMount: noop,
+	            triggerHide: triggerHide
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        var self = this;
+
+	        this.__bodyHandle = function (e) {
+	            var target = e.target || e.srcElement;
+	            var mountNode = ReactDOM.findDOMNode(self);
+	            var props = self.props;
+
+	            if (!props.triggerHide() || props.refTarget && contains(props.refTarget, target) || contains(mountNode, target)) {
+	                return;
+	            }
+
+	            if (self.__animate && self.__animate.backToTheStart) {
+	                self.__animate.backToTheStart(function () {
+	                    props.onVisible();
+	                });
+	            }
+	        };
+
+	        DOMEvent.on(body, 'click', this.__bodyHandle, false);
+	    },
+
+	    componentWillUnmount: function componentWillUnmount() {
+	        DOMEvent.off(body, 'click', this.__bodyHandle, false);
+	    },
+
+	    holdAnimate: function holdAnimate(animate) {
+	        this.__animate = animate;
+	        this.props.onAnimateMount(animate);
+	    },
+
+	    render: function render() {
+	        var props = this.props;
+	        assert(props.children, 'children required in HideOnBodyClick');
+
+	        return React.createElement(Animate, {
+	            style: props.style,
+	            component: props.component,
+	            from: { opacity: 0 },
+	            to: { opacity: 1 },
+	            during: 500,
+	            componentDidMount: this.holdAnimate }, props.children);
+	    }
+	});
+
+	module.exports = HideOnBodyClick;
+
+/***/ },
+/* 12 */,
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Created by xcp on 2016/3/19.
+	 */
+
+	var isElement = function isElement(elem) {
+	    var result = false;
+	    try {
+	        result = elem.nodeType === 1;
+	    } catch (e) {}
+	    return result;
+	};
+
+	var body = __webpack_require__(5);
+	var isW3c = !!body.addEventListener;
+	var ADD_EVENT_NAME = isW3c ? 'addEventListener' : 'attachEvent';
+	var REMOVE_EVENT_NAME = isW3c ? 'removeEventListener' : 'detachEvent';
+	var EVENT_TYPE_PREFIX = isW3c ? '' : 'on';
+
+	var eventType = function eventType(type) {
+	    return EVENT_TYPE_PREFIX + type;
+	};
+
+	var factory = function factory(handleName) {
+	    return function (elem, type, handle, capture) {
+	        if (!isElement(elem)) return elem;
+	        if (elem[handleName]) {
+	            elem[handleName](eventType(type), handle, capture);
+	        }
+	        return elem;
+	    };
+	};
+
+	module.exports = {
+	    on: factory(ADD_EVENT_NAME),
+	    off: factory(REMOVE_EVENT_NAME)
+	};
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	/**
+	 * Created by xcp on 2016/3/15.
+	 *
+	 * from jquery-1.9.1
+	 */
+
+	module.exports = function (a, b) {
+	    var c = a.nodeType === 9 ? a.documentElement : a;
+
+	    return a === b || !!(b && b.nodeType === 1 && (c.contains ? c.contains(b) : a.compareDocumentPosition && a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_CONTAINED_BY));
+	};
 
 /***/ }
 /******/ ]);

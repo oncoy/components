@@ -51,10 +51,10 @@
 	 */
 
 	var ReactDOM = __webpack_require__(3);
-	var Popup = __webpack_require__(29);
-	var Bubble = __webpack_require__(28);
-	var Bias = __webpack_require__(27);
-	var assign = __webpack_require__(5);
+	var Popup = __webpack_require__(30);
+	var Bubble = __webpack_require__(29);
+	var Bias = __webpack_require__(28);
+	var assign = __webpack_require__(6);
 
 	var __button = function __button(message) {
 	    return React.createElement('button', { className: 'btn btn-primary btn-sm' }, message);
@@ -137,8 +137,8 @@
 	        },
 
 	        componentDidMount: function componentDidMount() {
-	            // do something
 	            // refs.content is standardized DOM
+	            // content can accept children that from other for example angular
 	            console.log(this.refs.content);
 	        },
 
@@ -218,6 +218,17 @@
 /* 5 */
 /***/ function(module, exports) {
 
+	"use strict";
+
+	/**
+	 * Created by xcp on 2016/3/19.
+	 */
+	module.exports = document.body || document.documentElement;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
 	/* eslint-disable no-unused-vars */
 	'use strict';
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -258,17 +269,6 @@
 		return to;
 	};
 
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	/**
-	 * Created by xcp on 2016/3/19.
-	 */
-	module.exports = document.body || document.documentElement;
 
 /***/ },
 /* 7 */
@@ -331,7 +331,7 @@
 	var requestAnimation = __webpack_require__(8);
 	var requestAnimationFrame = requestAnimation.requestAnimationFrame;
 	var cancelAnimationFrame = requestAnimation.cancelAnimationFrame;
-	var assign = __webpack_require__(5);
+	var assign = __webpack_require__(6);
 	var React = __webpack_require__(1);
 
 	module.exports = {
@@ -479,8 +479,7 @@
 	module.exports = Animate;
 
 /***/ },
-/* 11 */,
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -494,7 +493,7 @@
 	var Animate = __webpack_require__(10);
 	var contains = __webpack_require__(14);
 	var DOMEvent = __webpack_require__(13);
-	var body = __webpack_require__(6);
+	var body = __webpack_require__(5);
 	var noop = __webpack_require__(2);
 	var assert = __webpack_require__(4);
 	var triggerHide = function triggerHide() {
@@ -569,6 +568,7 @@
 	module.exports = HideOnBodyClick;
 
 /***/ },
+/* 12 */,
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -586,7 +586,7 @@
 	    return result;
 	};
 
-	var body = __webpack_require__(6);
+	var body = __webpack_require__(5);
 	var isW3c = !!body.addEventListener;
 	var ADD_EVENT_NAME = isW3c ? 'addEventListener' : 'attachEvent';
 	var REMOVE_EVENT_NAME = isW3c ? 'removeEventListener' : 'detachEvent';
@@ -633,7 +633,8 @@
 /* 15 */,
 /* 16 */,
 /* 17 */,
-/* 18 */
+/* 18 */,
+/* 19 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -664,7 +665,6 @@
 	};
 
 /***/ },
-/* 19 */,
 /* 20 */,
 /* 21 */,
 /* 22 */,
@@ -672,7 +672,8 @@
 /* 24 */,
 /* 25 */,
 /* 26 */,
-/* 27 */
+/* 27 */,
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -745,7 +746,7 @@
 	module.exports = Bias;
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -798,7 +799,7 @@
 	module.exports = Bubble;
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -809,9 +810,9 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(3);
-	var PopupWrap = __webpack_require__(30);
-	var absolutePosition = __webpack_require__(18);
-	var body = __webpack_require__(6);
+	var PopupWrap = __webpack_require__(31);
+	var absolutePosition = __webpack_require__(19);
+	var body = __webpack_require__(5);
 	var noop = __webpack_require__(2);
 	var POPUP_GAP = 5;
 
@@ -954,7 +955,7 @@
 	module.exports = Popup;
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -968,10 +969,10 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(3);
-	var assign = __webpack_require__(5);
+	var assign = __webpack_require__(6);
 	var noop = __webpack_require__(2);
 	var DOMEvent = __webpack_require__(13);
-	var HideOnBodyClick = __webpack_require__(12);
+	var HideOnBodyClick = __webpack_require__(11);
 
 	var PopupWrap = React.createClass({
 	    displayName: 'PopupWrap',

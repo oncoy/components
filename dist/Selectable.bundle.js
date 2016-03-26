@@ -51,7 +51,7 @@
 	 */
 
 	var Selector = __webpack_require__(37);
-	var DropDown = __webpack_require__(16);
+	var DropDown = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(3);
 	var React = __webpack_require__(1);
 
@@ -150,6 +150,17 @@
 /* 5 */
 /***/ function(module, exports) {
 
+	"use strict";
+
+	/**
+	 * Created by xcp on 2016/3/19.
+	 */
+	module.exports = document.body || document.documentElement;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
 	/* eslint-disable no-unused-vars */
 	'use strict';
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -190,17 +201,6 @@
 		return to;
 	};
 
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	/**
-	 * Created by xcp on 2016/3/19.
-	 */
-	module.exports = document.body || document.documentElement;
 
 /***/ },
 /* 7 */
@@ -263,7 +263,7 @@
 	var requestAnimation = __webpack_require__(8);
 	var requestAnimationFrame = requestAnimation.requestAnimationFrame;
 	var cancelAnimationFrame = requestAnimation.cancelAnimationFrame;
-	var assign = __webpack_require__(5);
+	var assign = __webpack_require__(6);
 	var React = __webpack_require__(1);
 
 	module.exports = {
@@ -414,60 +414,6 @@
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-		'use strict';
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	/**
@@ -479,7 +425,7 @@
 	var Animate = __webpack_require__(10);
 	var contains = __webpack_require__(14);
 	var DOMEvent = __webpack_require__(13);
-	var body = __webpack_require__(6);
+	var body = __webpack_require__(5);
 	var noop = __webpack_require__(2);
 	var assert = __webpack_require__(4);
 	var triggerHide = function triggerHide() {
@@ -554,6 +500,60 @@
 	module.exports = HideOnBodyClick;
 
 /***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -571,7 +571,7 @@
 	    return result;
 	};
 
-	var body = __webpack_require__(6);
+	var body = __webpack_require__(5);
 	var isW3c = !!body.addEventListener;
 	var ADD_EVENT_NAME = isW3c ? 'addEventListener' : 'attachEvent';
 	var REMOVE_EVENT_NAME = isW3c ? 'removeEventListener' : 'detachEvent';
@@ -621,58 +621,12 @@
 	'use strict';
 
 	/**
-	 * Created by xcp on 2016/3/24.
-	 */
-
-	var classNames = __webpack_require__(11);
-
-	module.exports = {
-
-	    addOne: function addOne() {
-	        var index = 0;
-	        this.props.itemList.forEach(function (item) {
-	            if (item.index > index) index = item.index;
-	        });
-
-	        this.props.itemList.push({ percent: 0, index: index + 1 });
-	        this.reRender(this.props.itemList);
-	    },
-
-	    removeOne: function removeOne(item) {
-	        var index = this.props.itemList.indexOf(item);
-	        if (index !== -1) {
-	            this.props.itemList.splice(index, 1);
-	            this.reRender(this.props.itemList);
-	        }
-	    },
-
-	    getProgressClassName: function getProgressClassName() {
-	        var args = Array.prototype.slice.call(arguments, 1);
-	        var percent = arguments[0];
-	        var className = {};
-
-	        args.forEach(function (name) {
-	            className[name] = true;
-	        });
-
-	        className['progress-' + parseInt(percent * 100)] = true;
-	        return classNames(className);
-	    }
-	};
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
 	 * Created by xcp on 2016/3/22.
 	 */
 
 	var React = __webpack_require__(1);
 	var noop = __webpack_require__(2);
-	var Selectable = __webpack_require__(36);
+	var Selectable = __webpack_require__(18);
 
 	var DropDown = React.createClass({
 	    displayName: 'DropDown',
@@ -792,6 +746,52 @@
 	module.exports = DropDown;
 
 /***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Created by xcp on 2016/3/24.
+	 */
+
+	var classNames = __webpack_require__(12);
+
+	module.exports = {
+
+	    addOne: function addOne() {
+	        var index = 0;
+	        this.props.itemList.forEach(function (item) {
+	            if (item.index > index) index = item.index;
+	        });
+
+	        this.props.itemList.push({ percent: 0, index: index + 1 });
+	        this.reRender(this.props.itemList);
+	    },
+
+	    removeOne: function removeOne(item) {
+	        var index = this.props.itemList.indexOf(item);
+	        if (index !== -1) {
+	            this.props.itemList.splice(index, 1);
+	            this.reRender(this.props.itemList);
+	        }
+	    },
+
+	    getProgressClassName: function getProgressClassName() {
+	        var args = Array.prototype.slice.call(arguments, 1);
+	        var percent = arguments[0];
+	        var className = {};
+
+	        args.forEach(function (name) {
+	            className[name] = true;
+	        });
+
+	        className['progress-' + parseInt(percent * 100)] = true;
+	        return classNames(className);
+	    }
+	};
+
+/***/ },
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -865,7 +865,98 @@
 	};
 
 /***/ },
-/* 18 */,
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Created by xcp on 2016/3/22.
+	 */
+
+	var React = __webpack_require__(1);
+	var noop = __webpack_require__(2);
+	var classNames = __webpack_require__(12);
+	var HideOnBodyClick = __webpack_require__(11);
+
+	var Selectable = React.createClass({
+	    displayName: 'Selectable',
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            onSelect: noop,
+	            componentDidMount: noop,
+	            selectorBindEvent: true,
+	            selectorContent: null,
+	            panelContent: null
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            panelStateIsShow: false
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.props.componentDidMount(this);
+	    },
+
+	    showPanel: function showPanel() {
+	        var self = this;
+	        self.setState({ panelStateIsShow: true }, function () {
+	            var animate = self.__animate;
+	            var animateProps = animate.props;
+	            animate.animate(animateProps.from, animateProps.to);
+	        });
+	    },
+
+	    onAnimateMount: function onAnimateMount(animate) {
+	        this.__animate = animate;
+	    },
+
+	    onSelect: function onSelect(item) {
+	        var self = this;
+	        self.props.onSelect(item);
+	        self.__animate.backToTheStart(function () {
+	            self.onVisible();
+	        });
+	    },
+
+	    onVisible: function onVisible() {
+	        this.setState({ panelStateIsShow: false });
+	    },
+
+	    triggerHide: function triggerHide() {
+	        return this.state.panelStateIsShow;
+	    },
+
+	    render: function render() {
+	        var props = this.props;
+	        var className = classNames({
+	            'comp-custom-select': true,
+	            'comp-show-panel': this.state.panelStateIsShow
+	        });
+
+	        var selector = null;
+	        if (props.selectorBindEvent) {
+	            selector = React.createElement('div', { onClick: this.showPanel }, props.selectorContent);
+	        } else {
+	            selector = props.selectorContent;
+	        }
+
+	        return React.createElement('div', { className: className, ref: 'selectable' }, React.createElement('div', { className: 'comp-select-selector-pd' }, selector), React.createElement(HideOnBodyClick, {
+	            refTarget: this.refs.selectable,
+	            onVisible: this.onVisible,
+	            onAnimateMount: this.onAnimateMount,
+	            triggerHide: this.triggerHide }, React.createElement('div', { className: 'comp-select-panel' }, props.panelContent)));
+	    }
+
+	});
+
+	module.exports = Selectable;
+
+/***/ },
 /* 19 */,
 /* 20 */,
 /* 21 */,
@@ -878,7 +969,8 @@
 /* 28 */,
 /* 29 */,
 /* 30 */,
-/* 31 */
+/* 31 */,
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -889,12 +981,12 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(3);
-	var HideOnBodyClick = __webpack_require__(12);
-	var classNames = __webpack_require__(11);
+	var HideOnBodyClick = __webpack_require__(11);
+	var classNames = __webpack_require__(12);
 	var noop = __webpack_require__(2);
 
 	var SelectableMixin = __webpack_require__(17);
-	var ContainerMixin = __webpack_require__(15);
+	var ContainerMixin = __webpack_require__(16);
 
 	var Container = React.createClass({
 	    displayName: 'Container',
@@ -937,7 +1029,7 @@
 	module.exports = Container;
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -953,7 +1045,7 @@
 	 */
 
 	var React = __webpack_require__(1);
-	var DropDown = __webpack_require__(16);
+	var DropDown = __webpack_require__(15);
 	var noop = __webpack_require__(2);
 
 	var getSelectorContent = function getSelectorContent(item) {
@@ -1016,7 +1108,7 @@
 	module.exports = Diff;
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1027,12 +1119,12 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(3);
-	var HideOnBodyClick = __webpack_require__(12);
-	var classNames = __webpack_require__(11);
+	var HideOnBodyClick = __webpack_require__(11);
+	var classNames = __webpack_require__(12);
 	var noop = __webpack_require__(2);
 
 	var SelectableMixin = __webpack_require__(17);
-	var ContainerMixin = __webpack_require__(15);
+	var ContainerMixin = __webpack_require__(16);
 
 	var FOContainer = React.createClass({
 	    displayName: 'FOContainer',
@@ -1090,7 +1182,7 @@
 	module.exports = FOContainer;
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1106,7 +1198,7 @@
 	 */
 
 	var React = __webpack_require__(1);
-	var DropDown = __webpack_require__(16);
+	var DropDown = __webpack_require__(15);
 	var noop = __webpack_require__(2);
 
 	var getSelectorContent = function getSelectorContent(rejectValue, onChange) {
@@ -1193,7 +1285,7 @@
 	module.exports = Importable;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1204,11 +1296,11 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(3);
-	var HideOnBodyClick = __webpack_require__(12);
-	var classNames = __webpack_require__(11);
+	var HideOnBodyClick = __webpack_require__(11);
+	var classNames = __webpack_require__(12);
 
 	var SelectableMixin = __webpack_require__(17);
-	var ContainerMixin = __webpack_require__(15);
+	var ContainerMixin = __webpack_require__(16);
 
 	var MiniContainer = React.createClass({
 	    displayName: 'MiniContainer',
@@ -1246,101 +1338,6 @@
 	module.exports = MiniContainer;
 
 /***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * Created by xcp on 2016/3/22.
-	 */
-
-	var React = __webpack_require__(1);
-	var noop = __webpack_require__(2);
-	var classNames = __webpack_require__(11);
-	var HideOnBodyClick = __webpack_require__(12);
-
-	var Selectable = React.createClass({
-	    displayName: 'Selectable',
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            onSelect: noop,
-	            componentDidMount: noop,
-	            selectorBindEvent: true,
-	            selectorContent: null,
-	            panelContent: null
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            panelStateIsShow: false
-	        };
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        this.props.componentDidMount(this);
-	    },
-
-	    showPanel: function showPanel() {
-	        var self = this;
-	        self.setState({ panelStateIsShow: true }, function () {
-	            var animate = self.__animate;
-	            var animateProps = animate.props;
-	            animate.animate(animateProps.from, animateProps.to);
-	        });
-	    },
-
-	    onAnimateMount: function onAnimateMount(animate) {
-	        this.__animate = animate;
-	    },
-
-	    onSelect: function onSelect(item) {
-	        var self = this;
-	        self.props.onSelect(item);
-	        self.__animate.backToTheStart(function () {
-	            self.onVisible();
-	        });
-	    },
-
-	    onVisible: function onVisible() {
-	        this.setState({ panelStateIsShow: false });
-	    },
-
-	    triggerHide: function triggerHide() {
-	        return this.state.panelStateIsShow;
-	    },
-
-	    render: function render() {
-	        var props = this.props;
-	        var className = classNames({
-	            'comp-custom-select': true,
-	            'comp-show-panel': this.state.panelStateIsShow
-	        });
-
-	        var selector = null;
-	        if (props.selectorBindEvent) {
-	            selector = React.createElement('div', { onClick: this.showPanel }, props.selectorContent);
-	        } else {
-	            selector = props.selectorContent;
-	        }
-
-	        // todo 加载完成后，应该计算最长的宽度是多少，以免换行
-	        // 或者应该用样式自己控制？如果此处写死了 width，也是个麻烦
-	        // 再说吧
-	        return React.createElement('div', { className: className, ref: 'selectable' }, React.createElement('div', { className: 'comp-select-selector-pd' }, selector), React.createElement(HideOnBodyClick, {
-	            refTarget: this.refs.selectable,
-	            onVisible: this.onVisible,
-	            onAnimateMount: this.onAnimateMount,
-	            triggerHide: this.triggerHide }, React.createElement('div', { className: 'comp-select-panel' }, props.panelContent)));
-	    }
-
-	});
-
-	module.exports = Selectable;
-
-/***/ },
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1351,11 +1348,13 @@
 	 */
 
 	module.exports = {
-	    Importable: __webpack_require__(34),
-	    Diff: __webpack_require__(32),
-	    Container: __webpack_require__(31),
-	    FOContainer: __webpack_require__(33),
-	    MiniContainer: __webpack_require__(35)
+	    Importable: __webpack_require__(35),
+	    Diff: __webpack_require__(33),
+	    Container: __webpack_require__(32),
+	    FOContainer: __webpack_require__(34),
+	    MiniContainer: __webpack_require__(36),
+	    DropDown: __webpack_require__(15),
+	    Selectable: __webpack_require__(18)
 	};
 
 /***/ }
