@@ -2,7 +2,10 @@
 .markdown-body {
     width: 980px;
     margin: 0 auto;
-    padding: 45px;
+}
+
+.example-body {
+    padding: 0 45px;
 }
 
 .example {

@@ -23,7 +23,7 @@ var md = require('markdown-it')('commonmark', {
     }
 });
 
-var _addtionalHtml = function (body) {
+var _addtionalHtml = function (body, iframeId) {
     return `<!doctype html>
         <html lang="en">
         <head>
@@ -49,7 +49,7 @@ var _addtionalHtml = function (body) {
             hljs.initHighlightingOnLoad();
             var body = document.body;
             var cssText = 'height:' + body.scrollHeight + 'px;';
-            var iframe = window.parent.document.body.querySelector('iframe');
+            var iframe = window.parent.document.body.querySelector('#${iframeId}');
             if(iframe){
                 iframe.style.cssText = cssText;
             }
@@ -129,9 +129,10 @@ Parse.prototype.mkdirs = function (toPath, callback) {
 Parse.prototype.writeFile = function (from, to) {
     var reader = fs.createReadStream(from, 'utf8');
     var writer = fs.createWriteStream(to, 'utf8');
+    var fileName = path.basename(from).replace(this._config.type, '');
 
     reader.on('data', function (chunk) {
-        return writer.write(_addtionalHtml(md.render(chunk)));
+        return writer.write(_addtionalHtml(md.render(chunk), fileName));
     });
 };
 

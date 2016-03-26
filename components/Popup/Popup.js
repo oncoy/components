@@ -26,6 +26,8 @@ var Popup = React.createClass({
                 during: 500
             },
             trigger: 'click',
+            content: null,
+            placement: null,
             onComponentMount: noop
         }
     },
@@ -44,34 +46,8 @@ var Popup = React.createClass({
     // Invoked once, only on the client
     componentDidMount: function () {
         var popupMountNode = this.__popupMountNode = document.createElement('div');
-        body.appendChild(popupMountNode);
-
         var props = this.props;
-        var targetNode = this.refs.targetNode;
-        // 左上角的位置
-        var pos = absolutePosition(targetNode);
-        var placement = props.placement;
-        var w = targetNode.offsetWidth;
-        var h = targetNode.offsetHeight;
-
-        // 在该组件内，只需将最外层定位到对应位置
-        // 不用理会内容的size
-        switch (placement) {
-            case "top":
-                pos.y = pos.y - POPUP_GAP;
-                break;
-            case "right":
-                pos.x = pos.x + w + POPUP_GAP;
-                break;
-            case "bottom":
-                pos.y = pos.y + h + POPUP_GAP;
-                break;
-            case "left":
-                pos.x = pos.x - POPUP_GAP;
-                break;
-        }
-
-        this.__position = pos;
+        body.appendChild(popupMountNode);
 
         if (typeof props.content === 'string')
             props.content = <span>{props.content}</span>;
@@ -108,10 +84,43 @@ var Popup = React.createClass({
         }
     },
 
+    computedPosition: function () {
+        var props = this.props;
+        var targetNode = this.refs.targetNode;
+        // 左上角的位置
+        var pos = absolutePosition(targetNode);
+        var placement = props.placement;
+        var w = targetNode.offsetWidth;
+        var h = targetNode.offsetHeight;
+
+        // 在该组件内，只需将最外层定位到对应位置
+        // 不用理会内容的size
+        switch (placement) {
+            case "top":
+                pos.y = pos.y - POPUP_GAP;
+                break;
+            case "right":
+                pos.x = pos.x + w + POPUP_GAP;
+                break;
+            case "bottom":
+                pos.y = pos.y + h + POPUP_GAP;
+                break;
+            case "left":
+                pos.x = pos.x - POPUP_GAP;
+                break;
+        }
+
+        return this.__position = pos;
+    },
+
     renderPopup: function () {
         if (!this.isMounted()) return;
-        var props = this.props;
+        // 渲染的时候才计算位置
+        // 如果提前计算，在页面布局发生变化的情况下
+        // 计算的位置是错误的
+        this.computedPosition();
 
+        var props = this.props;
         ReactDOM.render(
             <PopupWrap
                 onAnimateMount={this.onAnimateMount}

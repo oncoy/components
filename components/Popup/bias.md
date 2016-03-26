@@ -1,0 +1,31 @@
+## Bubble 带有方向的汽泡
+
+### Props
++ placement - `String` - 方向 `top` `right` `bottom` `left` 四个方向
++ symbolStyle - `Object` - 小箭头的 style，用于控制位置
++ symbolClass - `Array` - 小箭头的 className
++ closeable - `Boolean` - 是否可关闭
++ style - `Object` - 外层容器 style，一般不用传
+
+## 调用方式
+
+1. 引入
+```JavaScript
+var React = require('react');
+var ReactDOM = require('react-dom');
+var Bias = require('react-components-essa').Bias
+```
+
+2. 使用
+```JavaScript
+ReactDOM.render(
+    <Bias 
+        placement="top"
+        symbolStyle={{}}
+        symbolClass={[]}
+        style={{}}>
+        Bias 内容
+    </Bubble>,
+    mountNode
+);
+```

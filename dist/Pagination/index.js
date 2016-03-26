@@ -15,8 +15,10 @@ var Pagination = React.createClass({
         total: React.PropTypes.number,
         pageSize: React.PropTypes.number,
         itemsInOnePage: React.PropTypes.number,
+        keepPages: React.PropTypes.number,
         onChange: React.PropTypes.func,
-        getPageElement: React.PropTypes.func
+        onSelect: React.PropTypes.func,
+        getPage: React.PropTypes.func
     },
 
     getInitialState: function getInitialState() {
@@ -127,7 +129,7 @@ var Pagination = React.createClass({
 
         if (start < computed.pages) {
             next = new Array(props.keepPages).fill(1).map(function (v, i) {
-                var num = computed.pages - i;
+                var num = computed.pages - props.keepPages + i + 1;
                 return this._getPage(num, current === num);
             }, this);
         }

@@ -4,6 +4,7 @@
  * Created by xcp on 2016/3/15.
  */
 
+var React = require('react');
 var ReactDOM = require('react-dom');
 var Popup = require('../Popup');
 var Bubble = require('../Bubble');
