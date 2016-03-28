@@ -1,18 +1,15 @@
 {
-  "name": "react-components-essa",
-  "version": "0.0.5",
+  "name": "react-components-s",
+  "version": "0.0.6",
   "description": "基于React的组件库",
   "keywords": [
     "react",
     "react components",
     "components",
-    "coinxu",
-    "essa"
+    "coinxu"
   ],
   "dependencies": {
     "classnames": "~2.2.0",
-    "react-redux": "^4.4.1",
-    "redux": "^3.3.1",
     "object-assign": "~4.0.1",
     "markdown-it":"^6.0.0",
     "highlight":"^0.2.4"

@@ -55,7 +55,7 @@ function Parse(config) {
     this._defaultConfig = {
         basePath: process.cwd(),
         from: './components',
-        to: './docs',
+        to: './documents',
         type: '.md'
     };
     this._config = Object.assign(this._defaultConfig, config);

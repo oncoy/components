@@ -6,7 +6,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var HideOnBodyClick = require('../HideOnBodyClick');
 var classNames = require('classnames');
-var noop = require('../../com/noop');
 
 var SelectableMixin = require('./SelectableMixin');
 var ContainerMixin = require('./ContainerMixin');
