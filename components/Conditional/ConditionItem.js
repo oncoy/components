@@ -4,12 +4,12 @@
 
 var React = require('react');
 var noop = require('../../com/noop');
-var ConditionMixins = require('./ConditionMixins');
+var ConditionMixin = require('./ConditionMixin');
 var classNames = require('classnames');
 
 var ConditionItem = React.createClass({
 
-    mixins: [ConditionMixins],
+    mixins: [ConditionMixin],
 
     getInitialState: function () {
         return {

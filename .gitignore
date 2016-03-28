@@ -1,5 +1,5 @@
 node_modules
 .idea
 lib
-    dist
-    docs
+dist
+documentation
