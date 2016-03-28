@@ -99,6 +99,7 @@ Parse.prototype.mkdirs = function (toPath, callback) {
         };
     }
     var __inner = function (cur) {
+        if (!cur) cur = '/';
         var stats = null;
         try {
             stats = fs.statSync(cur);
