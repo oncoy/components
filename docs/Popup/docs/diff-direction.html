@@ -1,0 +1,59 @@
+<!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Document</title>
+            <link rel="stylesheet" href="../../../assets/highlight/github.css">
+            <link rel="stylesheet" href="../../../assets/github-markdown.css">
+            <script src="../../../assets/highlight/highlight.min.js"></script>
+            <style>
+                .markdown-body {box-sizing: border-box;min-width: 200px;max-width: 980px;margin: 0 auto;padding: 45px;}
+            </style>
+        </head>
+        <body class="markdown-body">
+            <h2>不同方向的汽泡</h2>
+<pre><code class="language-JavaScript">// 水平方向，注意 symbolStyle
+var horizontal = &lt;Bubble symbolStyle={{left:'50%',marginLeft:-10}}&gt;
+    &lt;div style={{width:270}}&gt;Popup组件中的元素，在body被点击后，会隐藏&lt;/div&gt;
+&lt;/Bubble&gt;;
+// 垂直方向，注意 symbolStyle
+var vertical = &lt;Bubble symbolStyle={{top:6}}&gt;
+    &lt;div style={{width:270}}&gt;Popup组件中的元素，在body被点击后，会隐藏&lt;/div&gt;
+&lt;/Bubble&gt;;
+</code></pre>
+<h3>靠右的弹层</h3>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Popup placement=&quot;right&quot; content={vertical}&gt;
+        &lt;button className=&quot;btn btn-primary btn-sm&quot;&gt;靠右的弹层&lt;/button&gt;
+    &lt;/Popup&gt;,
+    mountNode
+);
+</code></pre>
+<h3>靠下的弹层</h3>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Popup placement=&quot;bottom&quot; content={horizontal}&gt;
+        &lt;button className=&quot;btn btn-primary btn-sm&quot;&gt;靠下的弹层&lt;/button&gt;
+    &lt;/Popup&gt;,
+    mountNode
+);
+</code></pre>
+<h3>靠左的弹层</h3>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Popup placement=&quot;left&quot; content={vertical}&gt;
+        &lt;button className=&quot;btn btn-primary btn-sm&quot;&gt;靠左的弹层&lt;/button&gt;
+    &lt;/Popup&gt;,
+    mountNode
+);
+</code></pre>
+
+        </body>
+        <script>
+            hljs.initHighlightingOnLoad();
+            var body = document.body;
+            var cssText = 'height:' + body.scrollHeight + 'px;';
+            var iframe = window.parent.document.body.querySelector('#diff-direction');
+            if(iframe){
+                iframe.style.cssText = cssText;
+            }
+        </script>
+        </html>

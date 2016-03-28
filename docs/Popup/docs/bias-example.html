@@ -1,0 +1,66 @@
+<!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Document</title>
+            <link rel="stylesheet" href="../../../assets/highlight/github.css">
+            <link rel="stylesheet" href="../../../assets/github-markdown.css">
+            <script src="../../../assets/highlight/highlight.min.js"></script>
+            <style>
+                .markdown-body {box-sizing: border-box;min-width: 200px;max-width: 980px;margin: 0 auto;padding: 45px;}
+            </style>
+        </head>
+        <body class="markdown-body">
+            <h2>Bias</h2>
+<ol>
+<li>引入</li>
+</ol>
+<pre><code class="language-JavaScript">var React = require('react');
+var ReactDOM = require('react-dom');
+var Popup = require('react-components-essa');
+var Bubble = Popup.Bubble;
+var Bias = Popup.Bias;
+var assign = require('object-assign');
+</code></pre>
+<ol start="2">
+<li>调用</li>
+</ol>
+<h3>不可自关闭的弹层</h3>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Popup
+        placement=&quot;top&quot;
+        content={&lt;Bias style={{width:160}}&gt;{biasContent}&lt;/Bias&gt;}&gt;
+        &lt;button className=&quot;btn btn-primary btn-sm&quot;&gt;不可自关闭的弹层&lt;/button&gt;
+    &lt;/Popup&gt;,
+    mountNode
+);
+</code></pre>
+<h3>hover显示关闭弹层</h3>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Popup
+        trigger=&quot;hover&quot;
+        placement=&quot;top&quot;
+        content={&lt;Bias style={{width:160}}&gt;{biasContent}&lt;/Bias&gt;}&gt;
+        &lt;button className=&quot;btn btn-primary btn-sm&quot;&gt;hover显示关闭弹层&lt;/button&gt;
+    &lt;/Popup&gt;,
+    document.getElementById('bias-top-left-hover')
+);
+</code></pre>
+<h3>可关闭的弹层，各种方向</h3>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Bias closeable placement=&quot;right&quot;&gt;{biasContent}&lt;/Bias&gt;,
+    mountNode
+);
+</code></pre>
+
+        </body>
+        <script>
+            hljs.initHighlightingOnLoad();
+            var body = document.body;
+            var cssText = 'height:' + body.scrollHeight + 'px;';
+            var iframe = window.parent.document.body.querySelector('#bias-example');
+            if(iframe){
+                iframe.style.cssText = cssText;
+            }
+        </script>
+        </html>

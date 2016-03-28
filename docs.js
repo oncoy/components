@@ -29,17 +29,11 @@ var _addtionalHtml = function (body, iframeId) {
         <head>
             <meta charset="UTF-8">
             <title>Document</title>
-            <link rel="stylesheet" href="../../lib/highlight/github.css">
-            <link rel="stylesheet" href="../../lib/github-markdown.css">
-            <script src="../../lib/highlight/highlight.min.js"></script>
+            <link rel="stylesheet" href="../../../assets/highlight/github.css">
+            <link rel="stylesheet" href="../../../assets/github-markdown.css">
+            <script src="../../../assets/highlight/highlight.min.js"></script>
             <style>
-                .markdown-body {
-                    box-sizing: border-box;
-                    min-width: 200px;
-                    max-width: 980px;
-                    margin: 0 auto;
-                    padding: 45px;
-                }
+                .markdown-body {box-sizing: border-box;min-width: 200px;max-width: 980px;margin: 0 auto;padding: 45px;}
             </style>
         </head>
         <body class="markdown-body">

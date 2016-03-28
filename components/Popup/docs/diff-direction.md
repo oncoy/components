@@ -23,7 +23,7 @@ ReactDOM.render(
 ### 靠下的弹层
 ```JavaScript
 ReactDOM.render(
-    <Popup placement="bottom" content={vertical}>
+    <Popup placement="bottom" content={horizontal}>
         <button className="btn btn-primary btn-sm">靠下的弹层</button>
     </Popup>,
     mountNode

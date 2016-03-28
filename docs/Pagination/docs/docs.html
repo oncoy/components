@@ -1,0 +1,92 @@
+<!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Document</title>
+            <link rel="stylesheet" href="../../../assets/highlight/github.css">
+            <link rel="stylesheet" href="../../../assets/github-markdown.css">
+            <script src="../../../assets/highlight/highlight.min.js"></script>
+            <style>
+                .markdown-body {box-sizing: border-box;min-width: 200px;max-width: 980px;margin: 0 auto;padding: 45px;}
+            </style>
+        </head>
+        <body class="markdown-body">
+            <h2>Pagination 分页</h2>
+<h3>Props</h3>
+<ul>
+<li>defaultCurrent - <code>React.PropTypes.number</code> - 默认选中页码 - 1</li>
+<li>total - <code>React.PropTypes.number</code> - 总共多少条数据 - 0</li>
+<li>pageSize - <code>React.PropTypes.number</code> - 总共显示多少个可选择按钮 - 5</li>
+<li>itemsInOnePage - <code>React.PropTypes.number</code> - 每一个页码生管理多少条数据 - 10</li>
+<li>keepPages - <code>React.PropTypes.number</code> - 2
+<blockquote>
+<p>如果当前显示的按钮之前或者之后还有页码不能完全显示出来。
+则会显示最前面和最后面的页码，该参数设置最前和最后显示的页码数。</p>
+</blockquote>
+</li>
+<li>onChange - <code>React.PropTypes.func</code> - 页码变化时的回调 - noop
+<blockquote>
+<p>传入一个参数 <code>num</code>，为当前页码编号</p>
+</blockquote>
+</li>
+<li>onSelect - <code>React.PropTypes.func</code> - 某一页码选中后的回调 - noop
+<blockquote>
+<p>传入一个参数 <code>num</code>，为当前页码编号</p>
+</blockquote>
+</li>
+<li>getPage - <code>React.PropTypes.fun</code> - 自定义页码内容函数</li>
+</ul>
+<pre><code class="language-JavaScript">// 默认值如下
+function (num, isCurrent) {
+    return &lt;span className={'page-item' + (isCurrent ? ' focus' : '')}&gt;{num}&lt;/span&gt;
+}
+// 生成页码时调用，传入两个参数：
+// `num` - 当前页码数
+// `isCurrent` - 当前页码是否被选中
+</code></pre>
+<h2>最简单的调用</h2>
+<ol>
+<li>引入</li>
+</ol>
+<pre><code class="language-Javascript">var React = require('react');
+var ReactDOM = require('react-dom');
+var Pagination = require('react-components-essa').Pagination;
+</code></pre>
+<ol start="2">
+<li>调用</li>
+</ol>
+<pre><code class="language-JavaScript">ReactDOM.render(&lt;Pagination defaultCurrent={10} total={1000} /&gt;, mountNode);
+</code></pre>
+<h2>传入参数，改变 keepPages 的值</h2>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Pagination
+        defaultCurrent={3}
+        total={1000}
+        keepPages={1}
+        pageSize={6}
+        onChange={onChange}/&gt;,
+    mountNode
+);
+</code></pre>
+<h2>传入参数，改变 itemsInOnePage 的值</h2>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Pagination
+        total={20}
+        pageSize={9}
+        itemsInOnePage={5}
+        onChange={onChange}/&gt;,
+    mountNode
+);
+</code></pre>
+
+        </body>
+        <script>
+            hljs.initHighlightingOnLoad();
+            var body = document.body;
+            var cssText = 'height:' + body.scrollHeight + 'px;';
+            var iframe = window.parent.document.body.querySelector('#docs');
+            if(iframe){
+                iframe.style.cssText = cssText;
+            }
+        </script>
+        </html>

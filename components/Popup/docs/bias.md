@@ -1,4 +1,4 @@
-## Bubble 带有方向的汽泡
+## Bias 带有方向的汽泡
 
 ### Props
 + placement - `String` - 方向 `top` `right` `bottom` `left` 四个方向
@@ -24,6 +24,18 @@ ReactDOM.render(
         symbolStyle={{}}
         symbolClass={[]}
         style={{}}>
+        Bias 内容
+    </Bubble>,
+    mountNode
+);
+```
+
+### 可关闭的 Bias
+```JavaScript
+ReactDOM.render(
+    <Bias 
+        placement="top"
+        closeable>
         Bias 内容
     </Bubble>,
     mountNode

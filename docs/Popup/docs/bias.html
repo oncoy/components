@@ -1,0 +1,66 @@
+<!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Document</title>
+            <link rel="stylesheet" href="../../../assets/highlight/github.css">
+            <link rel="stylesheet" href="../../../assets/github-markdown.css">
+            <script src="../../../assets/highlight/highlight.min.js"></script>
+            <style>
+                .markdown-body {box-sizing: border-box;min-width: 200px;max-width: 980px;margin: 0 auto;padding: 45px;}
+            </style>
+        </head>
+        <body class="markdown-body">
+            <h2>Bias 带有方向的汽泡</h2>
+<h3>Props</h3>
+<ul>
+<li>placement - <code>String</code> - 方向 <code>top</code> <code>right</code> <code>bottom</code> <code>left</code> 四个方向</li>
+<li>symbolStyle - <code>Object</code> - 小箭头的 style，用于控制位置</li>
+<li>symbolClass - <code>Array</code> - 小箭头的 className</li>
+<li>closeable - <code>Boolean</code> - 是否可关闭</li>
+<li>style - <code>Object</code> - 外层容器 style，一般不用传</li>
+</ul>
+<h2>调用方式</h2>
+<ol>
+<li>引入</li>
+</ol>
+<pre><code class="language-JavaScript">var React = require('react');
+var ReactDOM = require('react-dom');
+var Bias = require('react-components-essa').Bias
+</code></pre>
+<ol start="2">
+<li>使用</li>
+</ol>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Bias 
+        placement=&quot;top&quot;
+        symbolStyle={{}}
+        symbolClass={[]}
+        style={{}}&gt;
+        Bias 内容
+    &lt;/Bubble&gt;,
+    mountNode
+);
+</code></pre>
+<h3>可关闭的 Bias</h3>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Bias 
+        placement=&quot;top&quot;
+        closeable&gt;
+        Bias 内容
+    &lt;/Bubble&gt;,
+    mountNode
+);
+</code></pre>
+
+        </body>
+        <script>
+            hljs.initHighlightingOnLoad();
+            var body = document.body;
+            var cssText = 'height:' + body.scrollHeight + 'px;';
+            var iframe = window.parent.document.body.querySelector('#bias');
+            if(iframe){
+                iframe.style.cssText = cssText;
+            }
+        </script>
+        </html>

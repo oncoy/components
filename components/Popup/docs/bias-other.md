@@ -2,22 +2,21 @@
 ```JavaScript
 (function () {
     var popup = null;
-//
     var holdPopup = function (popupInstance) {
         popup = popupInstance
     };
-//
     var unmountPopup = function () {
         if (popup) {
             popup.autoVisible && popup.autoVisible()
         }
     };
-//
     var Confirm = <Bubble style={{width:210}} symbolStyle={{left:'50%',marginLeft:-10}}>
         <button className="btn btn-sm btn-primary" onClick={unmountPopup}>删除</button>
         <span className="bub-text-gap-lg">确定删除该贴纸吗?</span>
     </Bubble>;
-//
+    // 注意 onComponentMount 属性，该属性的值为一个函数
+    // 当 Popup 组件挂载完成时调用，传将 Popup 实例传入
+    // 所以可以通过一个变量持有该实例
     ReactDOM.render(
         <Popup
             onComponentMount={holdPopup}
@@ -30,7 +29,7 @@
 })();
 ```
 ## 复杂一点的弹出面板内容
-```
+```JavaScript
 (function () {
     var popup = null;
     var holdPopup = function (popupInstance) {

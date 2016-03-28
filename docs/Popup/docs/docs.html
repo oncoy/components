@@ -1,0 +1,69 @@
+<!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Document</title>
+            <link rel="stylesheet" href="../../../assets/highlight/github.css">
+            <link rel="stylesheet" href="../../../assets/github-markdown.css">
+            <script src="../../../assets/highlight/highlight.min.js"></script>
+            <style>
+                .markdown-body {box-sizing: border-box;min-width: 200px;max-width: 980px;margin: 0 auto;padding: 45px;}
+            </style>
+        </head>
+        <body class="markdown-body">
+            <h2>Popup 包含了所有的弹层，内容较多，所以文档分开写</h2>
+<h3>Popup 包含如下两个大类</h3>
+<ul>
+<li><a href="./bubble.html" title="右键新开窗口打开">Bubble</a> - 带有箭头的大型汽泡</li>
+<li><a href="./bias.html" title="右键新开窗口打开">Bias</a> - 带有箭头的小型提示信息</li>
+</ul>
+<p><code>Popup</code> 本身只是一个包装组件，主要负责当一个元素被渲染之后，计算其在页面上的位置。
+并根据其属性 <code>placement</code> 来计算其子元素应该放置的位置。</p>
+<h3>Props</h3>
+<ul>
+<li>animate - <code>Object</code> 包含了 <code>Animate</code> 组件的所有属性</li>
+<li>trigger - <code>String</code> 目前可选 <code>click</code> 与 <code>hover</code></li>
+<li>placement - <code>String</code> 目前可选 <code>top</code> <code>right</code> <code>bottom</code> <code>left</code></li>
+<li>content - <code>String | React.Element</code> 弹窗内容</li>
+<li>onComponentMount - <code>Function</code> 组件挂载时调用，传入组件实例。</li>
+</ul>
+<h2>最简单的调用</h2>
+<p>目前封装性较低，所以最简单的也比较复杂~</p>
+<ol>
+<li>引入内容</li>
+</ol>
+<pre><code class="language-Javascript">var React = require('react');
+var ReactDOM = require('react-dom');
+var Popup = require('react-components-essa');
+var Popup = Popup.Popup;
+var Bubble = Popup.Bubble;
+</code></pre>
+<ol start="2">
+<li>建立一个 Bubble</li>
+</ol>
+<pre><code class="language-JavaScript">var horizontal = &lt;Bubble symbolStyle={{left:'50%',marginLeft:-10}}&gt;
+    &lt;div style={{width:270}}&gt;Popup组件中的元素，在body被点击后，会隐藏&lt;/div&gt;
+&lt;/Bubble&gt;;
+</code></pre>
+<ol start="3">
+<li>渲染</li>
+</ol>
+<pre><code class="language-JavaScript">ReactDOM.render(
+    &lt;Popup placement=&quot;top&quot; content={horizontal}&gt;
+        &lt;button className=&quot;btn btn-primary btn-sm&quot;&gt;靠上的弹层&lt;/button&gt;
+    &lt;/Popup&gt;,
+    mountNode
+);
+</code></pre>
+
+        </body>
+        <script>
+            hljs.initHighlightingOnLoad();
+            var body = document.body;
+            var cssText = 'height:' + body.scrollHeight + 'px;';
+            var iframe = window.parent.document.body.querySelector('#docs');
+            if(iframe){
+                iframe.style.cssText = cssText;
+            }
+        </script>
+        </html>

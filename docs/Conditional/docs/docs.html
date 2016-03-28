@@ -1,0 +1,95 @@
+<!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Document</title>
+            <link rel="stylesheet" href="../../../assets/highlight/github.css">
+            <link rel="stylesheet" href="../../../assets/github-markdown.css">
+            <script src="../../../assets/highlight/highlight.min.js"></script>
+            <style>
+                .markdown-body {box-sizing: border-box;min-width: 200px;max-width: 980px;margin: 0 auto;padding: 45px;}
+            </style>
+        </head>
+        <body class="markdown-body">
+            <h2>Conditional - 条件选择</h2>
+<h3>Props</h3>
+<ul>
+<li>
+<p>itemList <code>React.PropTypes.array</code> 内容列表</p>
+<pre><code class="language-JavaScript"> var conditionData = [
+     {value: 0, children: 'a'},
+     {value: 1, children: 'b'},
+     {value: 2, children: 'c'},
+     {value: 3, children: 'd'}
+ ];
+ // children 的值可以是string\number\React.Element
+</code></pre>
+</li>
+<li>
+<p>onChecked - <code>React.PropTypes.func</code> - 某一个选择被点击时触发</p>
+<blockquote>
+<p>函数被调用时，将会传入两个参数 <code>isChecked</code>、 <code>currentValue</code>。
+分别表示 <code>是否处于选择状态</code>、<code>当前按钮代表的值</code></p>
+</blockquote>
+</li>
+<li>
+<p>onChange - <code>React.PropTypes.func</code>  - 选择的值有变化时触发</p>
+<blockquote>
+<p>函数被调用时，将会传入两个参数 <code>prev</code>、<code>current</code>。
+分别表示 <code>上一次选中的值</code>、 <code>当次选中的值</code></p>
+</blockquote>
+</li>
+<li>
+<p>className - <code>React.PropTypes.string</code> - 组件className</p>
+</li>
+<li>
+<p>itemClassName - <code>React.PropTypes.string</code> - 每一个选项的className</p>
+</li>
+<li>
+<p>checkedClassName - <code>React.PropTypes.string</code> - 被选中时添加的className</p>
+</li>
+<li>
+<p>defaultChecked - <code>React.PropTypes.any</code> - 默认选中的值</p>
+</li>
+</ul>
+<h2>最简单的调用</h2>
+<ol>
+<li>引入内容</li>
+</ol>
+<pre><code class="language-Javascript">var React = require('react');
+var ReactDOM = require('react-dom');
+var Condition = require('react-components-essa').Conditional;
+</code></pre>
+<ol start="2">
+<li>调用</li>
+</ol>
+<pre><code class="language-JavaScript">var log = function () {
+    console.info(arguments)
+};
+ReactDOM.render(
+    &lt;Condition
+        itemList={conditionDemoData}
+        onChecked={function(isChecked, value) {
+          log('onChecked');
+          log(isChecked, value);
+        }}
+        onChange={function(prev, current) {
+          log('onChange');
+          log(prev, current);
+        }}
+    /&gt;,
+    mountNode
+);
+</code></pre>
+
+        </body>
+        <script>
+            hljs.initHighlightingOnLoad();
+            var body = document.body;
+            var cssText = 'height:' + body.scrollHeight + 'px;';
+            var iframe = window.parent.document.body.querySelector('#docs');
+            if(iframe){
+                iframe.style.cssText = cssText;
+            }
+        </script>
+        </html>

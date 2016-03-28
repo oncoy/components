@@ -4,9 +4,9 @@
 ```JavaScript
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Popup = require('../Popup');
-var Bubble = require('../Bubble');
-var Bias = require('../Bias');
+var Popup = require('react-components-essa');
+var Bubble = Popup.Bubble;
+var Bias = Popup.Bias;
 var assign = require('object-assign');
 ```
 
