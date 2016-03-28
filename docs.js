@@ -23,12 +23,12 @@ var md = require('markdown-it')('commonmark', {
     }
 });
 
-var _addtionalHtml = function (body, iframeId) {
+var _addtionalHtml = function (title, body, iframeId) {
     return `<!doctype html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>Document</title>
+            <title>${title}</title>
             <link rel="stylesheet" href="../../../assets/highlight/github.css">
             <link rel="stylesheet" href="../../../assets/github-markdown.css">
             <script src="../../../assets/highlight/highlight.min.js"></script>
@@ -126,7 +126,7 @@ Parse.prototype.writeFile = function (from, to) {
     var fileName = path.basename(from).replace(this._config.type, '');
 
     reader.on('data', function (chunk) {
-        return writer.write(_addtionalHtml(md.render(chunk), fileName));
+        return writer.write(_addtionalHtml(fileName, md.render(chunk), fileName));
     });
 };
 

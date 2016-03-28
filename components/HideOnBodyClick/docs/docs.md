@@ -16,7 +16,7 @@
 ```Javascript
 var React = require('react');
 var ReactDOM = require('react-dom');
-var HideOnBodyClick = require('react-components-essa').HideOnBodyClick;
+var HideOnBodyClick = require('react-components-s').HideOnBodyClick;
 ```
 
 2. 调用

@@ -21,7 +21,7 @@
 ```Javascript
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Popup = require('react-components-essa');
+var Popup = require('react-components-s');
 var Popup = Popup.Popup;
 var Bubble = Popup.Bubble;
 ```

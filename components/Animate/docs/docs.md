@@ -15,7 +15,7 @@
 ```JavaScript
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Animate = require('react-components-essa').Animate;
+var Animate = require('react-components-s').Animate;
 ```
  
 2. 创建一个 `AnimateChild`

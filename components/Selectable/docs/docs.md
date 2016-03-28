@@ -8,13 +8,13 @@
 + 业务基础组件
   + [ContainerMixin](./ContainerMixin.html)
 + 业务组件
-  + [Importable](./Importable.html)
   + [Container](./Container.html)
+  + [Importable](./Importable.html)
   + [Different](./Different.html)
   + [FirstOutContainer](./FirstOutContainer.html)
   + [MiniContainer](./MiniContainer.html)
   
 ### 引用
 ```JavaScript
-var Selectable = require('react-components-essa').Selectable;
+var Selector = require('react-components-s').Selectable;
 ```

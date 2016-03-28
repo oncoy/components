@@ -61,5 +61,6 @@ module.exports = {
 
     componentWillMount: function () {
         this.setState({currentSelectedValue: this.props.defaultSelectedValue});
+
     }
 };

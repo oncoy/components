@@ -29,7 +29,7 @@ function (num, isCurrent) {
 ```Javascript
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Pagination = require('react-components-essa').Pagination;
+var Pagination = require('react-components-s').Pagination;
 ```
 
 2. 调用

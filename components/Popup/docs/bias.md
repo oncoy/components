@@ -13,7 +13,7 @@
 ```JavaScript
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Bias = require('react-components-essa').Bias
+var Bias = require('react-components-s').Bias
 ```
 
 2. 使用

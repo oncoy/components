@@ -29,7 +29,7 @@
 ```Javascript
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Condition = require('react-components-essa').Conditional;
+var Condition = require('react-components-s').Conditional;
 ```
 
 2. 调用

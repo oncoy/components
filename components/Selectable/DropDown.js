@@ -52,12 +52,12 @@ var DropDown = React.createClass({
         </ol>;
 
         var selectorContent = React.cloneElement(props.selectorContent, {
-            componentDidMount: this.onSelectorMount
+            onComponentMount: this.onSelectorMount
         });
 
         return <Selectable
             selectorBindEvent={props.selectorBindEvent}
-            componentDidMount={this.onSelectableMount}
+            onComponentMount={this.onSelectableMount}
             selectorContent={selectorContent}
             panelContent={panelContent}/>
     }
@@ -99,13 +99,13 @@ DropDown.Selector = React.createClass({
         return {
             defaultSelectedValue: null,
             onSelect: noop,
-            componentDidMount: noop,
+            onComponentMount: noop,
             getSelectorContent: noop
         }
     },
 
     componentDidMount: function () {
-        this.props.componentDidMount(this);
+        this.props.onComponentMount(this);
     },
 
     componentWillMount: function () {

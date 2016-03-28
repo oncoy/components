@@ -12,7 +12,7 @@ var Selectable = React.createClass({
     getDefaultProps: function () {
         return {
             onSelect: noop,
-            componentDidMount: noop,
+            onComponentMount: noop,
             selectorBindEvent: true,
             selectorContent: null,
             panelContent: null
@@ -26,7 +26,7 @@ var Selectable = React.createClass({
     },
 
     componentDidMount: function () {
-        this.props.componentDidMount(this);
+        this.props.onComponentMount(this);
     },
 
     showPanel: function () {

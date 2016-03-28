@@ -13,7 +13,7 @@
 ```JavaScript
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Bubble = require('react-components-essa').Bubble
+var Bubble = require('react-components-s').Bubble
 ```
 
 2. 使用

@@ -9,7 +9,7 @@
 ## 调用
 1. 引入
 ```Javascript
-var Message = require('react-components-essa').Message;
+var Message = require('react-components-s').Message;
 ```
 
 2. 调用

@@ -40,7 +40,7 @@ ReactDOM.render(
     <Selector.Container
         itemList={[{index:0, percent:0.8},{index:1, percent:0.23}]}
         onSelect={log}/>,
-    document.getElementById('container')
+    document.getElementById('wrap-container')
 );
 
 // 自定义下拉菜单-先出货柜
