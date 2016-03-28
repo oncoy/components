@@ -7,7 +7,7 @@ npm install --save
 1. windows - `./compile.bat`
 2. *unix - `./compile.sh`
 
-## Make documentation
+## Make documents
 ```bash
 webpack
 node ./docs
