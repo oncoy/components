@@ -42,7 +42,7 @@ var Bubble = React.createClass({
         return (<div className={classNames.wrapperClass} style={this.props.style}>
             <span className={classNames.symbolClass + symbolClassName}
                   style={this.props.symbolStyle}/>
-            <div className="bub-con bub-all-pd">
+            <div className="bub-con">
                 {this.props.children}
             </div>
         </div>)

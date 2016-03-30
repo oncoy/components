@@ -3,11 +3,11 @@
  */
 
 module.exports = {
-    Animate: require('./components/Animate'),
-    Conditional: require('./components/Conditional'),
-    HideOnBodyClick: require('./components/HideOnBodyClick'),
-    Message: require('./components/Message'),
-    Pagination: require('./components/Pagination'),
-    Popup: require('./components/Popup'),
-    Selectable: require('./components/Selectable')
+    Animate: require('./dist/Animate'),
+    Conditional: require('./dist/Conditional'),
+    HideOnBodyClick: require('./dist/HideOnBodyClick'),
+    Message: require('./dist/Message'),
+    Pagination: require('./dist/Pagination'),
+    Popup: require('./dist/Popup'),
+    Selectable: require('./dist/Selectable')
 };

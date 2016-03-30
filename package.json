@@ -8,11 +8,14 @@
     "components",
     "coinxu"
   ],
+  "scripts": {
+    "build": "babel --presets react --extensions .js,.jsx components --out-dir dist"
+  },
   "dependencies": {
     "classnames": "~2.2.0",
     "object-assign": "~4.0.1",
-    "markdown-it":"^6.0.0",
-    "highlight":"^0.2.4"
+    "markdown-it": "^6.0.0",
+    "highlight": "^0.2.4"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
