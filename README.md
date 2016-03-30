@@ -1,6 +1,6 @@
 ## Install dependencies
 ```bash
-npm install --save
+npm install
 ```
 
 ## Compile JSX
@@ -12,5 +12,7 @@ npm install --save
 webpack
 node ./docs
 ```
+## webpack 与 babel 需要全局安装，才能正确运行 Compile
+
 
 
