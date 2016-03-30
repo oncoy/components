@@ -9,7 +9,7 @@
 
 // performance.now polyfill
 (function (root) {
-
+    root = this;
     if ('performance' in root === false) {
         root.performance = {};
     }
@@ -28,7 +28,7 @@
         };
     }
 
-})(this);
+})();
 
 var TWEEN = TWEEN || (function () {
 
@@ -777,7 +777,7 @@ TWEEN.Interpolation = {
 
 // UMD (Universal Module Definition)
 (function (root) {
-
+    root = this;
     if (typeof define === 'function' && define.amd) {
 
         // AMD
@@ -797,4 +797,4 @@ TWEEN.Interpolation = {
 
     }
 
-})(this);
+})();

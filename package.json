@@ -1,6 +1,6 @@
 {
   "name": "react-components-s",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "基于React的组件库",
   "keywords": [
     "react",
@@ -9,7 +9,8 @@
     "coinxu"
   ],
   "scripts": {
-    "build": "babel --presets react --extensions .js,.jsx components --out-dir dist"
+    "build": "babel --presets react --extensions .js,.jsx components --out-dir dist",
+    "install": "npm run build"
   },
   "dependencies": {
     "classnames": "~2.2.0",

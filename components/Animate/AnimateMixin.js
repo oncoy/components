@@ -4,7 +4,7 @@
 
 var TweenEvents = ['Start', 'Update', 'Complete', 'Stop'];
 var noop = require('../../com/noop');
-var TWEEN = require('tween');
+var TWEEN = require('../../com/tween');
 var Tween = TWEEN.Tween;
 var requestAnimation = require('../../com/requestAnimationFrame');
 var requestAnimationFrame = requestAnimation.requestAnimationFrame;

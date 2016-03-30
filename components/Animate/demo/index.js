@@ -17,7 +17,7 @@ var AnimateChild = React.createClass({
     }
 });
 
-var TWEEN = require('tween');
+var TWEEN = require('../../../com/tween');
 
 // 最简单的调用
 ReactDOM.render(
