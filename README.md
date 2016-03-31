@@ -1,3 +1,6 @@
+## 项目需要依赖 es6
+建议 nodejs 升级到最新版本，旧版本的 nodejs 运行时，尝试加 --harmony 参数，如果依然失败... 请升级...
+
 ## Install dependencies
 ```bash
 npm install
