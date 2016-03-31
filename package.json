@@ -1,6 +1,6 @@
 {
   "name": "react-components-s",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "基于React的组件库",
   "keywords": [
     "react",
@@ -9,7 +9,8 @@
     "coinxu"
   ],
   "scripts": {
-    "build": "babel --presets react --extensions .js,.jsx components --out-dir dist",
+    "start": "npm config set registry https://registry.npm.taobao.org && npm info underscore",
+    "build": "babel --presets react --extensions .js,.jsx components --out-dir dist && node ./docs",
     "install": "npm run build"
   },
   "dependencies": {
