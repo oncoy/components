@@ -1,7 +1,8 @@
 {
   "name": "react-components-s",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "基于React的组件库",
+  "author":"coinxu",
   "keywords": [
     "react",
     "react components",
